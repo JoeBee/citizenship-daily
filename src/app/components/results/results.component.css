@@ -1,0 +1,170 @@
+.results-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.results-content {
+  width: 100%;
+}
+
+.results-title {
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.score-display {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 24px;
+  background: #f3f4f6;
+  border-radius: 12px;
+}
+
+.score-number {
+  font-size: 48px;
+  font-weight: 700;
+  color: #3b82f6;
+  margin-bottom: 8px;
+}
+
+.score-label {
+  font-size: 18px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.results-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.result-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  border: 2px solid #e5e7eb;
+}
+
+.result-item.correct {
+  background: #d1fae5;
+  border-color: #10b981;
+}
+
+.result-item.incorrect {
+  background: #fee2e2;
+  border-color: #ef4444;
+}
+
+.result-icon {
+  flex-shrink: 0;
+}
+
+.icon-correct {
+  color: #10b981;
+}
+
+.icon-incorrect {
+  color: #ef4444;
+}
+
+.result-text {
+  flex: 1;
+}
+
+.result-question {
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.result-answer {
+  font-size: 14px;
+  margin-bottom: 4px;
+  opacity: 0.8;
+}
+
+.correct-answer {
+  font-size: 14px;
+  font-weight: 600;
+  color: #065f46;
+  margin-top: 4px;
+}
+
+.results-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.share-button, .play-again-button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.share-button {
+  background: #3b82f6;
+  color: white;
+}
+
+.share-button:hover {
+  background: #2563eb;
+}
+
+.play-again-button {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.play-again-button:hover {
+  background: #e5e7eb;
+}
+
+/* Dark mode */
+.dark .score-display {
+  background: #1f2937;
+}
+
+.dark .score-number {
+  color: #60a5fa;
+}
+
+.dark .score-label {
+  color: #9ca3af;
+}
+
+.dark .result-item {
+  border-color: #374151;
+}
+
+.dark .result-item.correct {
+  background: #064e3b;
+  border-color: #10b981;
+}
+
+.dark .result-item.incorrect {
+  background: #7f1d1d;
+  border-color: #ef4444;
+}
+
+.dark .play-again-button {
+  background: #374151;
+  color: white;
+}
+
+.dark .play-again-button:hover {
+  background: #4b5563;
+}
+

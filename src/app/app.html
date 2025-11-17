@@ -1,0 +1,29 @@
+<div class="app-container">
+  <header class="app-header">
+    <div class="header-content">
+      <div class="title-container">
+        <app-icon name="flag" [size]="28" class="flag-icon" aria-label="American flag"></app-icon>
+        <h1 class="app-title">Citizenship Daily</h1>
+      </div>
+      <div class="header-actions">
+        <button class="icon-button" (click)="openStats()" title="Statistics">
+          <app-icon name="bar-chart-3" [size]="24"></app-icon>
+        </button>
+        <button class="icon-button" (click)="openSettings()" title="Settings">
+          <app-icon name="settings" [size]="24"></app-icon>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+  <main class="app-main">
+    <router-outlet></router-outlet>
+  </main>
+  
+  <app-stats-modal [isOpen]="showStatsModal()" (close)="closeStats()"></app-stats-modal>
+  <app-settings-modal 
+    [isOpen]="showSettingsModal()" 
+    (close)="closeSettings()"
+    (darkModeChanged)="onDarkModeChanged($event)">
+  </app-settings-modal>
+</div>

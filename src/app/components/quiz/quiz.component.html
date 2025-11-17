@@ -1,0 +1,71 @@
+<div class="quiz-container">
+  @if (isLoading()) {
+    <div class="loading">
+      @if (isGenerating()) {
+        Generating today's quiz questions...
+      } @else {
+        Loading today's quiz...
+      }
+    </div>
+  } @else if (currentQuestion()) {
+    <div class="quiz-content">
+      <div class="question-header">
+        <div class="question-number">Question {{ currentQuestionIndex() + 1 }} of 5</div>
+      </div>
+      
+      <div class="question-text">
+        {{ currentQuestion()?.questionText }}
+      </div>
+      
+      <div class="options-container">
+        @for (option of currentQuestion()?.options; track $index) {
+          <button
+            class="option-button"
+            [class.correct]="showFeedback() && isCorrect($index)"
+            [class.incorrect]="showFeedback() && isSelected($index) && !isCorrect($index)"
+            [class.disabled]="showFeedback()"
+            [disabled]="showFeedback()"
+            (click)="selectAnswer($index)">
+            {{ option }}
+          </button>
+        }
+      </div>
+      
+      @if (showFeedback()) {
+        <div class="feedback-section">
+          <div class="feedback-message" [class.correct-feedback]="selectedAnswer() !== null && isCorrect(selectedAnswer()!)" [class.incorrect-feedback]="selectedAnswer() !== null && !isCorrect(selectedAnswer()!)">
+            @if (selectedAnswer() !== null && isCorrect(selectedAnswer()!)) {
+              ✓ Correct!
+            } @else {
+              ✗ Incorrect. The correct answer is: {{ getCorrectAnswerText() }}
+            }
+          </div>
+          <button class="next-button" (click)="nextQuestion()">
+            {{ isLastQuestion() ? 'View Results' : 'Next Question' }}
+          </button>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="error">
+      <p>No quiz available for today.</p>
+      <p style="font-size: 14px; margin-top: 12px; color: #6b7280;">
+        The quiz could not be generated automatically. To set up the quiz, please:
+      </p>
+      <ul style="font-size: 14px; margin-top: 8px; color: #6b7280; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto;">
+        <li><strong>Option 1:</strong> Deploy Cloud Functions (requires Blaze plan):
+          <code style="display: block; margin-top: 4px; padding: 8px; background: #f3f4f6; border-radius: 4px;">firebase deploy --only functions</code>
+        </li>
+        <li style="margin-top: 12px;"><strong>Option 2:</strong> Manually add questions via Firebase Console:
+          <ul style="margin-top: 4px; margin-left: 20px;">
+            <li>Go to Firestore Database</li>
+            <li>Create collection: <code>citizenshipDaily</code></li>
+            <li>Add document with ID: today's date (YYYY-MM-DD format)</li>
+            <li>See <code>scripts/populate-firestore-simple.md</code> for details</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  }
+</div>
+

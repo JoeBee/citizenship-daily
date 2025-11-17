@@ -1,0 +1,44 @@
+<div class="results-container">
+  <div class="results-content">
+    <h1 class="results-title">Citizenship Daily</h1>
+    <div class="score-display">
+      <div class="score-number">{{ score }}/{{ totalQuestions }}</div>
+      <div class="score-label">Your Score</div>
+    </div>
+    
+    <div class="results-grid">
+      @for (question of questions; track $index) {
+        <div class="result-item" [class.correct]="isCorrect($index)" [class.incorrect]="!isCorrect($index)">
+          <div class="result-icon">
+            @if (isCorrect($index)) {
+              <app-icon name="check-circle" [size]="24" class="icon-correct"></app-icon>
+            } @else {
+              <app-icon name="x-circle" [size]="24" class="icon-incorrect"></app-icon>
+            }
+          </div>
+          <div class="result-text">
+            <div class="result-question">{{ question.questionText }}</div>
+            <div class="result-answer">
+              Your answer: {{ question.options[answers[$index]] }}
+            </div>
+            @if (!isCorrect($index)) {
+              <div class="correct-answer">
+                Correct answer: {{ question.options[question.correctAnswerIndex] }}
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+    
+    <div class="results-actions">
+      <button class="share-button" (click)="shareResults()">
+        Share Results
+      </button>
+      <button class="play-again-button" (click)="playAgain()">
+        Play Again Tomorrow
+      </button>
+    </div>
+  </div>
+</div>
+

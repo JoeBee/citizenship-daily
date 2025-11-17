@@ -1,0 +1,25 @@
+@if (isOpen) {
+  <div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Settings</h2>
+        <button class="close-button" (click)="closeModal()">
+          <app-icon name="x" [size]="24"></app-icon>
+        </button>
+      </div>
+      
+      <div class="settings-content">
+        <div class="setting-item">
+          <div class="setting-label">
+            <span>Dark Mode</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" [checked]="darkMode()" (change)="toggleDarkMode()">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
