@@ -19,10 +19,25 @@ export class App implements OnInit {
   constructor(private storageService: StorageService) {}
 
   ngOnInit(): void {
-    // Load dark mode preference on app start
-    const settings = this.storageService.getSettings();
-    if (settings.darkMode) {
-      document.documentElement.classList.add('dark');
+    try {
+      // Load dark mode preference on app start
+      const settings = this.storageService.getSettings();
+      if (settings.darkMode) {
+        document.documentElement.classList.add('dark');
+      }
+    } catch (error) {
+      console.error('Error initializing app:', error);
+    }
+
+    // Check if service worker is causing issues
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(registrations => {
+        for (const registration of registrations) {
+          console.log('Service worker registered:', registration.scope);
+        }
+      }).catch(err => {
+        console.warn('Error checking service workers:', err);
+      });
     }
   }
 

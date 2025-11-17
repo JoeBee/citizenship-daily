@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Question } from '../../services/quiz.service';
@@ -13,13 +13,14 @@ import { QuizService } from '../../services/quiz.service';
   templateUrl: './results.component.html',
   styleUrl: './results.component.css'
 })
-export class ResultsComponent implements OnInit {
+export class ResultsComponent implements OnInit, AfterViewInit {
   score = 0;
   totalQuestions = 5;
   answers: number[] = [];
   questions: Question[] = [];
   quizDate = '';
   showCopyNotification = false;
+  private shouldRedirect = false;
 
   constructor(
     private router: Router,
@@ -29,41 +30,77 @@ export class ResultsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const state = history.state;
-    const currentDate = this.quizService.getCurrentDateString();
-    
-    if (state && state.score !== undefined) {
-      // Data passed via router state
-      this.score = state.score;
-      this.answers = state.answers || [];
-      this.questions = state.questions || [];
-      this.quizDate = state.quizDate || '';
+    try {
+      const state = history.state;
+      const currentDate = this.quizService.getCurrentDateString();
       
-      // Also save to storage for future visits
-      this.storageService.saveResultsData({
-        quizDate: this.quizDate || currentDate,
-        score: this.score,
-        answers: this.answers,
-        questions: this.questions
-      });
-    } else {
-      // Try to load from storage (for returning users)
-      const savedResults = this.storageService.getResultsData();
-      
-      if (savedResults && savedResults.quizDate === currentDate) {
-        // Load saved results for today's quiz
-        this.score = savedResults.score;
-        this.answers = savedResults.answers || [];
-        this.questions = savedResults.questions || [];
-        this.quizDate = savedResults.quizDate || currentDate;
-      } else if (savedResults && savedResults.quizDate !== currentDate) {
-        // Old results from a previous day - clear them and redirect
-        this.storageService.clearResultsData();
-        this.router.navigate(['/']);
+      if (state && state.score !== undefined) {
+        // Data passed via router state
+        this.score = state.score;
+        this.answers = state.answers || [];
+        this.questions = state.questions || [];
+        this.quizDate = state.quizDate || '';
+        
+        // Also save to storage for future visits
+        this.storageService.saveResultsData({
+          quizDate: this.quizDate || currentDate,
+          score: this.score,
+          answers: this.answers,
+          questions: this.questions
+        });
       } else {
-        // No results available, redirect to quiz
-        this.router.navigate(['/']);
+        // Try to load from storage (for returning users)
+        const savedResults = this.storageService.getResultsData();
+        
+        if (savedResults && savedResults.quizDate === currentDate) {
+          // Load saved results for today's quiz
+          this.score = savedResults.score || 0;
+          this.answers = savedResults.answers || [];
+          this.questions = savedResults.questions || [];
+          this.quizDate = savedResults.quizDate || currentDate;
+          
+          // If we don't have valid questions, mark for redirect
+          if (!this.questions || this.questions.length === 0) {
+            console.warn('Results loaded but no questions found, will redirect to quiz');
+            this.shouldRedirect = true;
+            return;
+          }
+        } else if (savedResults && savedResults.quizDate !== currentDate) {
+          // Old results from a previous day - clear them and mark for redirect
+          this.storageService.clearResultsData();
+          this.shouldRedirect = true;
+          return;
+        } else {
+          // No results available, mark for redirect
+          console.warn('No results data found, will redirect to quiz');
+          this.shouldRedirect = true;
+          return;
+        }
       }
+      
+      // Validate we have the required data
+      if (!this.questions || this.questions.length === 0) {
+        console.error('Results component initialized without questions, will redirect');
+        this.shouldRedirect = true;
+      }
+    } catch (error) {
+      console.error('Error initializing results component:', error);
+      // On error, mark for redirect
+      this.shouldRedirect = true;
+    }
+  }
+
+  ngAfterViewInit(): void {
+    // Delay redirect until after view is initialized to prevent infinite loops
+    if (this.shouldRedirect) {
+      setTimeout(() => {
+        // Check if we're still on the results page before redirecting
+        if (this.router.url === '/results') {
+          this.router.navigate(['/']).catch(err => {
+            console.error('Error navigating away from results:', err);
+          });
+        }
+      }, 100);
     }
   }
 

@@ -5,18 +5,19 @@
       <span class="copy-notification-text">Results copied to clipboard!</span>
     </div>
   }
-  <div class="results-content">
-    <h1 class="results-title">Citizenship Daily</h1>
-    <div class="score-icons-display">
-      <span class="score-icons">{{ getScoreIcons() }}</span>
-    </div>
-    <div class="score-display">
-      <div class="score-number">{{ score }}/{{ totalQuestions }}</div>
-      <div class="score-label">Your Score</div>
-    </div>
-    
-    <div class="results-grid">
-      @for (question of questions; track $index) {
+  @if (questions && questions.length > 0) {
+    <div class="results-content">
+      <h1 class="results-title">Citizenship Daily</h1>
+      <div class="score-icons-display">
+        <span class="score-icons">{{ getScoreIcons() }}</span>
+      </div>
+      <div class="score-display">
+        <div class="score-number">{{ score }}/{{ totalQuestions }}</div>
+        <div class="score-label">Your Score</div>
+      </div>
+      
+      <div class="results-grid">
+        @for (question of questions; track $index) {
         <div class="result-item" [class.correct]="isCorrect($index)" [class.incorrect]="!isCorrect($index)">
           <div class="result-header">
             <div class="result-number">Question {{ $index + 1 }}</div>
@@ -62,7 +63,15 @@
       <p class="come-back-text">
         🌟 Don't stop now! Come back tomorrow to unlock new challenges and keep your learning streak alive! Every day is a chance to master something new! 🚀
       </p>
+      </div>
     </div>
-  </div>
+  } @else {
+    <div class="results-content">
+      <h1 class="results-title">Citizenship Daily</h1>
+      <div class="loading" style="text-align: center; padding: 40px;">
+        <p>Loading results...</p>
+      </div>
+    </div>
+  }
 </div>
 

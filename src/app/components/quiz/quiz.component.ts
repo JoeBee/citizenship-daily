@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, computed } from '@angular/core';
+import { Component, OnInit, signal, computed, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QuizService, Question } from '../../services/quiz.service';
 import { StorageService, QuizState } from '../../services/storage.service';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './quiz.component.html',
   styleUrl: './quiz.component.css'
 })
-export class QuizComponent implements OnInit {
+export class QuizComponent implements OnInit, OnDestroy {
   questions = signal<Question[]>([]);
   currentQuestionIndex = signal(0);
   answers = signal<number[]>([-1, -1, -1, -1, -1]);
@@ -21,6 +21,7 @@ export class QuizComponent implements OnInit {
   isGenerating = signal(false);
   quizDate = signal('');
   isCompleted = signal(false);
+  private loadingTimeout: any = null;
 
   currentQuestion = computed(() => {
     const index = this.currentQuestionIndex();
@@ -39,7 +40,22 @@ export class QuizComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Set a global timeout to ensure loading state never gets stuck
+    this.loadingTimeout = setTimeout(() => {
+      if (this.isLoading()) {
+        console.warn('Loading timeout - forcing loading state to false');
+        this.isLoading.set(false);
+        this.isGenerating.set(false);
+      }
+    }, 30000); // 30 second max loading time
+    
     this.loadQuiz();
+  }
+
+  ngOnDestroy(): void {
+    if (this.loadingTimeout) {
+      clearTimeout(this.loadingTimeout);
+    }
   }
 
   loadQuiz(): void {
@@ -49,13 +65,30 @@ export class QuizComponent implements OnInit {
     // Check if today's quiz is already completed - redirect to results
     // Check both stats and results data for reliability
     const savedResults = this.storageService.getResultsData();
-    const isCompleted = this.storageService.isQuizCompletedForDate(currentDate) || 
-                        (savedResults && savedResults.quizDate === currentDate);
+    const isCompleted = this.storageService.isQuizCompletedForDate(currentDate);
+    const hasResultsData = savedResults && savedResults.quizDate === currentDate && 
+                           savedResults.questions && savedResults.questions.length > 0;
     
-    if (isCompleted) {
-      // Redirect to results page instead of showing completion message
-      this.router.navigate(['/results']);
+    // Only redirect to results if we have valid results data and we're not already there
+    if (isCompleted && hasResultsData && this.router.url !== '/results') {
+      // Delay redirect to prevent infinite loops
+      setTimeout(() => {
+        // Double check we're still on quiz page before redirecting
+        if (this.router.url === '/') {
+          this.router.navigate(['/results']).catch(err => {
+            console.error('Error navigating to results:', err);
+          });
+        }
+      }, 100);
       return;
+    }
+    
+    // If completed but no results data, clear the completion flag and continue
+    if (isCompleted && !hasResultsData) {
+      console.warn('Quiz marked as completed but no results data found, resetting');
+      // Clear old/incomplete results data
+      this.storageService.clearResultsData();
+      // Continue to load quiz normally
     }
 
     // Check local storage for saved state
@@ -64,12 +97,26 @@ export class QuizComponent implements OnInit {
     const handleQuizResponse = (quiz: any) => {
       this.isLoading.set(false);
       this.isGenerating.set(false);
-      if (quiz && quiz.questions) {
+      if (quiz && quiz.questions && quiz.questions.length > 0) {
         this.questions.set(quiz.questions);
         if (savedState && savedState.quizDate === currentDate) {
           this.currentQuestionIndex.set(savedState.currentQuestionIndex);
           this.answers.set(savedState.answers);
         }
+      } else {
+        // No quiz available - this will show the error message
+        this.isLoading.set(false);
+        this.isGenerating.set(false);
+      }
+    };
+
+    const handleError = (error: any) => {
+      console.error('Error loading quiz:', error);
+      this.isLoading.set(false);
+      this.isGenerating.set(false);
+      // Ensure we have an empty questions array to trigger the error UI
+      if (this.questions().length === 0) {
+        // This will show the error state in the template
       }
     };
 
@@ -77,10 +124,7 @@ export class QuizComponent implements OnInit {
       // Resume from saved state - use auto-generate in case quiz was deleted
       this.quizService.getDailyQuizWithAutoGenerate(currentDate).subscribe({
         next: handleQuizResponse,
-        error: (error) => {
-          console.error('Error loading quiz:', error);
-          this.isLoading.set(false);
-        }
+        error: handleError
       });
     } else {
       // Start fresh - automatically generate if doesn't exist
@@ -99,11 +143,7 @@ export class QuizComponent implements OnInit {
           // Now call the auto-generate method
           this.quizService.getDailyQuizWithAutoGenerate(currentDate).subscribe({
             next: handleQuizResponse,
-            error: (error) => {
-              console.error('Error loading quiz:', error);
-              this.isLoading.set(false);
-              this.isGenerating.set(false);
-            }
+            error: handleError
           });
         },
         error: () => {
@@ -111,11 +151,7 @@ export class QuizComponent implements OnInit {
           this.isGenerating.set(true);
           this.quizService.getDailyQuizWithAutoGenerate(currentDate).subscribe({
             next: handleQuizResponse,
-            error: (error) => {
-              console.error('Error loading quiz:', error);
-              this.isLoading.set(false);
-              this.isGenerating.set(false);
-            }
+            error: handleError
           });
         }
       });
