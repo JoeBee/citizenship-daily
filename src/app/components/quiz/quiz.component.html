@@ -7,6 +7,17 @@
         Loading today's quiz...
       }
     </div>
+  } @else if (isCompleted()) {
+    <div class="completed-message">
+      <div class="completed-icon">✓</div>
+      <h2>You've already completed today's quiz!</h2>
+      <p class="completed-text">
+        Great job! You've finished all 5 questions for today.
+      </p>
+      <p class="next-quiz-text">
+        🎯 Keep your momentum going! New questions await you tomorrow to continue building your knowledge! 💪
+      </p>
+    </div>
   } @else if (currentQuestion()) {
     <div class="quiz-content">
       <div class="question-header">

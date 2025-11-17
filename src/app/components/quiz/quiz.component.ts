@@ -20,6 +20,7 @@ export class QuizComponent implements OnInit {
   isLoading = signal(true);
   isGenerating = signal(false);
   quizDate = signal('');
+  isCompleted = signal(false);
 
   currentQuestion = computed(() => {
     const index = this.currentQuestionIndex();
@@ -44,6 +45,18 @@ export class QuizComponent implements OnInit {
   loadQuiz(): void {
     const currentDate = this.quizService.getCurrentDateString();
     this.quizDate.set(currentDate);
+
+    // Check if today's quiz is already completed - redirect to results
+    // Check both stats and results data for reliability
+    const savedResults = this.storageService.getResultsData();
+    const isCompleted = this.storageService.isQuizCompletedForDate(currentDate) || 
+                        (savedResults && savedResults.quizDate === currentDate);
+    
+    if (isCompleted) {
+      // Redirect to results page instead of showing completion message
+      this.router.navigate(['/results']);
+      return;
+    }
 
     // Check local storage for saved state
     const savedState = this.storageService.getQuizState();
@@ -131,6 +144,15 @@ export class QuizComponent implements OnInit {
       ).length;
       
       this.storageService.updateStats(score, this.quizDate());
+      // Save results data so it can be restored when user returns
+      this.storageService.saveResultsData({
+        quizDate: this.quizDate(),
+        score,
+        answers: this.answers(),
+        questions: this.questions()
+      });
+      // Clear quiz state since quiz is now completed
+      this.storageService.clearQuizState();
       this.router.navigate(['/results'], { 
         state: { 
           score, 
@@ -170,6 +192,23 @@ export class QuizComponent implements OnInit {
     const question = this.currentQuestion();
     if (!question) return '';
     return question.options[question.correctAnswerIndex];
+  }
+
+  getNextQuizTime(): string {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+    
+    const now = new Date();
+    const msUntilMidnight = tomorrow.getTime() - now.getTime();
+    const hours = Math.floor(msUntilMidnight / (1000 * 60 * 60));
+    const minutes = Math.floor((msUntilMidnight % (1000 * 60 * 60)) / (1000 * 60));
+    
+    if (hours > 0) {
+      return `${hours} hour${hours !== 1 ? 's' : ''} and ${minutes} minute${minutes !== 1 ? 's' : ''}`;
+    } else {
+      return `${minutes} minute${minutes !== 1 ? 's' : ''}`;
+    }
   }
 }
 

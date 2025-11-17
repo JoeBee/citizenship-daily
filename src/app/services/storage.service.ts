@@ -21,6 +21,13 @@ export interface Stats {
   lastPlayedDate: string | null;
 }
 
+export interface ResultsData {
+  quizDate: string;
+  score: number;
+  answers: number[];
+  questions: any[]; // Question[] type
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -28,6 +35,7 @@ export class StorageService {
   private readonly QUIZ_STATE_KEY = 'citizenshipDaily_quizState';
   private readonly STATS_KEY = 'citizenshipDaily_stats';
   private readonly SETTINGS_KEY = 'citizenshipDaily_settings';
+  private readonly RESULTS_KEY = 'citizenshipDaily_results';
 
   getQuizState(): QuizState | null {
     const stored = localStorage.getItem(this.QUIZ_STATE_KEY);
@@ -100,6 +108,24 @@ export class StorageService {
 
   saveSettings(settings: { darkMode: boolean }): void {
     localStorage.setItem(this.SETTINGS_KEY, JSON.stringify(settings));
+  }
+
+  isQuizCompletedForDate(quizDate: string): boolean {
+    const stats = this.getStats();
+    return stats.lastPlayedDate === quizDate;
+  }
+
+  saveResultsData(data: ResultsData): void {
+    localStorage.setItem(this.RESULTS_KEY, JSON.stringify(data));
+  }
+
+  getResultsData(): ResultsData | null {
+    const stored = localStorage.getItem(this.RESULTS_KEY);
+    return stored ? JSON.parse(stored) : null;
+  }
+
+  clearResultsData(): void {
+    localStorage.removeItem(this.RESULTS_KEY);
   }
 }
 
