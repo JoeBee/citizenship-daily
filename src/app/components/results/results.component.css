@@ -57,7 +57,21 @@
   font-size: 32px;
   font-weight: 700;
   text-align: center;
+  margin-bottom: 16px;
+}
+
+.quiz-tagline {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  font-style: italic;
   margin-bottom: 24px;
+  padding: 8px 16px;
+  background: #f9fafb;
+  border-radius: 20px;
+  display: inline-block;
+  width: 100%;
 }
 
 .score-icons-display {
@@ -316,6 +330,7 @@
 .encouragement-icons {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 16px;
   margin-bottom: 16px;
 }
@@ -330,12 +345,17 @@
   animation-delay: 0s;
 }
 
-.encouragement-icon:nth-child(2) {
+.encouragement-icon:nth-child(3) {
   animation-delay: 0.2s;
 }
 
-.encouragement-icon:nth-child(3) {
-  animation-delay: 0.4s;
+.usa-title-inline {
+  font-size: 24px;
+  font-weight: 700;
+  color: #78350f;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1;
 }
 
 @keyframes bounce {
@@ -348,6 +368,16 @@
   60% {
     transform: translateY(-5px);
   }
+}
+
+.usa-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #78350f;
+  text-align: center;
+  margin: 16px 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .encouragement-text {
@@ -384,8 +414,21 @@
   color: #fef3c7;
 }
 
+.dark .usa-title {
+  color: #fde68a;
+}
+
+.dark .usa-title-inline {
+  color: #fde68a;
+}
+
 .dark .come-back-text {
   color: #fde68a;
+}
+
+.dark .quiz-tagline {
+  background: #1f2937;
+  color: #9ca3af;
 }
 
 /* Mobile optimizations */
