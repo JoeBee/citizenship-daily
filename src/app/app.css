@@ -85,6 +85,27 @@ body {
   color: #374151;
 }
 
+/* Info button with patriotic colors */
+.icon-button.info-button {
+  background: linear-gradient(135deg, 
+    rgba(220, 38, 38, 0.1) 0%, 
+    rgba(255, 255, 255, 0.1) 33%, 
+    rgba(59, 130, 246, 0.1) 66%, 
+    rgba(220, 38, 38, 0.1) 100%);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  color: #dc2626;
+}
+
+.icon-button.info-button:hover {
+  background: linear-gradient(135deg, 
+    rgba(220, 38, 38, 0.15) 0%, 
+    rgba(255, 255, 255, 0.15) 33%, 
+    rgba(59, 130, 246, 0.15) 66%, 
+    rgba(220, 38, 38, 0.15) 100%);
+  border-color: rgba(220, 38, 38, 0.3);
+  color: #b91c1c;
+}
+
 .app-main {
   flex: 1;
   width: 100%;
@@ -117,6 +138,26 @@ body {
 .dark .icon-button:hover {
   background: #374151;
   color: white;
+}
+
+.dark .icon-button.info-button {
+  background: linear-gradient(135deg, 
+    rgba(220, 38, 38, 0.2) 0%, 
+    rgba(255, 255, 255, 0.15) 33%, 
+    rgba(59, 130, 246, 0.2) 66%, 
+    rgba(220, 38, 38, 0.2) 100%);
+  border-color: rgba(220, 38, 38, 0.4);
+  color: #fca5a5;
+}
+
+.dark .icon-button.info-button:hover {
+  background: linear-gradient(135deg, 
+    rgba(220, 38, 38, 0.25) 0%, 
+    rgba(255, 255, 255, 0.2) 33%, 
+    rgba(59, 130, 246, 0.25) 66%, 
+    rgba(220, 38, 38, 0.25) 100%);
+  border-color: rgba(220, 38, 38, 0.5);
+  color: #f87171;
 }
 
 /* Mobile optimizations */

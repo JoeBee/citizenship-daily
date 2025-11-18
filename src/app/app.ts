@@ -1,5 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { InfoModalComponent } from './components/info-modal/info-modal.component';
 import { StatsModalComponent } from './components/stats-modal/stats-modal.component';
 import { SettingsModalComponent } from './components/settings-modal/settings-modal.component';
 import { IconComponent } from './shared/icon.component';
@@ -7,12 +8,13 @@ import { StorageService } from './services/storage.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, StatsModalComponent, SettingsModalComponent, IconComponent],
+  imports: [RouterOutlet, InfoModalComponent, StatsModalComponent, SettingsModalComponent, IconComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App implements OnInit {
   protected readonly title = signal('Citizenship Daily');
+  showInfoModal = signal(false);
   showStatsModal = signal(false);
   showSettingsModal = signal(false);
 
@@ -39,6 +41,14 @@ export class App implements OnInit {
         console.warn('Error checking service workers:', err);
       });
     }
+  }
+
+  openInfo(): void {
+    this.showInfoModal.set(true);
+  }
+
+  closeInfo(): void {
+    this.showInfoModal.set(false);
   }
 
   openStats(): void {

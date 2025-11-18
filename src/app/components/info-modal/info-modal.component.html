@@ -1,0 +1,34 @@
+@if (isOpen) {
+  <div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>About Citizenship Daily</h2>
+        <button class="close-button" (click)="closeModal()">
+          <app-icon name="x" [size]="24"></app-icon>
+        </button>
+      </div>
+      
+      <div class="info-content">
+        <p class="info-description">
+          Test your knowledge of US citizenship with 5 daily questions from the official USCIS civics test.
+        </p>
+        
+        <div class="info-features">
+          <div class="feature-item">
+            <span class="feature-icon">📚</span>
+            <span class="feature-text">100 official USCIS civics questions</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">📊</span>
+            <span class="feature-text">Track your progress and streaks</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🗽</span>
+            <span class="feature-text">New questions daily at midnight EST</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+

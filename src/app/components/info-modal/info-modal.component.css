@@ -1,0 +1,148 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  transition: color 0.2s;
+}
+
+.close-button:hover {
+  color: #374151;
+}
+
+.info-content {
+  padding: 20px;
+}
+
+.info-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #374151;
+  margin-bottom: 24px;
+}
+
+.info-features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.feature-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.feature-text {
+  font-size: 15px;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+/* Dark mode */
+.dark .modal-content {
+  background: #1f2937;
+}
+
+.dark .modal-header {
+  border-bottom-color: #374151;
+}
+
+.dark .modal-header h2 {
+  color: white;
+}
+
+.dark .close-button {
+  color: #9ca3af;
+}
+
+.dark .close-button:hover {
+  color: white;
+}
+
+.dark .info-description {
+  color: #d1d5db;
+}
+
+.dark .feature-text {
+  color: #9ca3af;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .modal-overlay {
+    padding: 16px;
+  }
+  
+  .modal-content {
+    max-width: 100%;
+  }
+  
+  .modal-header {
+    padding: 16px;
+  }
+  
+  .modal-header h2 {
+    font-size: 20px;
+  }
+  
+  .info-content {
+    padding: 16px;
+  }
+  
+  .info-description {
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .feature-text {
+    font-size: 14px;
+  }
+}
+
