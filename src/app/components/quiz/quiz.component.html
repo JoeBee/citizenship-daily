@@ -21,7 +21,11 @@
   } @else if (currentQuestion()) {
     <div class="quiz-content">
       <div class="quiz-tagline">
-        <div class="tagline-title">Citizenship Daily</div>
+        <div class="tagline-title">
+          <app-icon name="flag" [size]="28" class="flag-icon" aria-label="American flag"></app-icon>
+          Citizenship Daily
+          <span class="statue-icon">🗽</span>
+        </div>
         <div class="tagline-text">Whether you're already American or working on it</div>
       </div>
       @if (quizCategory()) {

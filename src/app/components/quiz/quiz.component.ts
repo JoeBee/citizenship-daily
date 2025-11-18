@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { QuizService, Question } from '../../services/quiz.service';
 import { StorageService, QuizState } from '../../services/storage.service';
 import { Router } from '@angular/router';
+import { IconComponent } from '../../shared/icon.component';
 
 @Component({
   selector: 'app-quiz',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, IconComponent],
   templateUrl: './quiz.component.html',
   styleUrl: './quiz.component.css'
 })

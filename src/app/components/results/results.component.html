@@ -8,7 +8,11 @@
   @if (questions && questions.length > 0) {
   <div class="results-content">
     <div class="quiz-tagline">
-      <div class="tagline-title">Citizenship Daily</div>
+      <div class="tagline-title">
+        <app-icon name="flag" [size]="28" class="flag-icon" aria-label="American flag"></app-icon>
+        Citizenship Daily
+        <span class="statue-icon">🗽</span>
+      </div>
       <div class="tagline-text">Whether you're already American or working on it</div>
     </div>
     <div class="score-icons-display">
@@ -63,7 +67,10 @@
 
     <div class="encouragement-message">
       <div class="encouragement-icons">
-        <span class="usa-title-inline">United States of America</span>
+        <span class="usa-title-inline">
+          <app-icon name="flag" [size]="28" class="flag-icon" aria-label="American flag"></app-icon>
+          United States of America
+        </span>
         <span class="encouragement-icon">📜</span>
       </div>
       <p class="come-back-text">
