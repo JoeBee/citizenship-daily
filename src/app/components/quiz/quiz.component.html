@@ -20,6 +20,12 @@
     </div>
   } @else if (currentQuestion()) {
     <div class="quiz-content">
+      @if (quizCategory()) {
+        <div class="category-badge">
+          <span class="category-icon">📚</span>
+          <span class="category-text">{{ quizCategory() }}</span>
+        </div>
+      }
       <div class="question-header">
         <div class="question-number">Question {{ currentQuestionIndex() + 1 }} of 5</div>
       </div>
@@ -72,7 +78,7 @@
             <li>Go to Firestore Database</li>
             <li>Create collection: <code>citizenshipDaily</code></li>
             <li>Add document with ID: today's date (YYYY-MM-DD format)</li>
-            <li>See <code>scripts/populate-firestore-simple.md</code> for details</li>
+            <li>See Firebase documentation for details</li>
           </ul>
         </li>
       </ul>

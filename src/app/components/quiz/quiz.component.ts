@@ -20,6 +20,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   isLoading = signal(true);
   isGenerating = signal(false);
   quizDate = signal('');
+  quizCategory = signal<string>('');
   isCompleted = signal(false);
   private loadingTimeout: any = null;
 
@@ -99,6 +100,7 @@ export class QuizComponent implements OnInit, OnDestroy {
       this.isGenerating.set(false);
       if (quiz && quiz.questions && quiz.questions.length > 0) {
         this.questions.set(quiz.questions);
+        this.quizCategory.set(quiz.category || '');
         if (savedState && savedState.quizDate === currentDate) {
           this.currentQuestionIndex.set(savedState.currentQuestionIndex);
           this.answers.set(savedState.answers);

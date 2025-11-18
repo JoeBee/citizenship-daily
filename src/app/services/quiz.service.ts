@@ -11,10 +11,12 @@ export interface Question {
   questionText: string;
   options: string[];
   correctAnswerIndex: number;
+  category?: string;
 }
 
 export interface DailyQuiz {
   questions: Question[];
+  category?: string;
 }
 
 @Injectable({
@@ -35,7 +37,11 @@ export class QuizService {
         timeout(5000), // 5 second timeout
         map(docSnapshot => {
           if (docSnapshot.exists()) {
-            return { questions: docSnapshot.data()['questions'] as Question[] };
+            const data = docSnapshot.data();
+            return { 
+              questions: data['questions'] as Question[],
+              category: data['category'] as string | undefined
+            };
           }
           return null;
         }),
@@ -135,11 +141,26 @@ export class QuizService {
       // Generate questions using the same algorithm as Cloud Function
       const questions = generateDailyQuestions(date);
       
-      // Format questions for Firestore (remove category field)
+      // Determine the primary category (most common category in today's questions)
+      const categoryCounts = new Map<string, number>();
+      questions.forEach(q => {
+        categoryCounts.set(q.category, (categoryCounts.get(q.category) || 0) + 1);
+      });
+      let primaryCategory = "";
+      let maxCount = 0;
+      categoryCounts.forEach((count, category) => {
+        if (count > maxCount) {
+          maxCount = count;
+          primaryCategory = category;
+        }
+      });
+      
+      // Format questions for Firestore (include category field)
       const firestoreQuestions = questions.map(q => ({
         questionText: q.questionText,
         options: q.options,
-        correctAnswerIndex: q.correctAnswerIndex
+        correctAnswerIndex: q.correctAnswerIndex,
+        category: q.category
       }));
       
       // Save to Firestore
@@ -147,17 +168,18 @@ export class QuizService {
       return from(setDoc(docRef, {
         questions: firestoreQuestions,
         date: date,
+        category: primaryCategory,
         generatedAt: new Date().toISOString(),
         clientSideGenerated: true
       })).pipe(
         map(() => {
           console.log(`Successfully generated quiz client-side for ${date}`);
-          return { questions: firestoreQuestions };
+          return { questions: firestoreQuestions, category: primaryCategory };
         }),
         catchError(error => {
           console.error('Error saving quiz to Firestore:', error);
           // Even if save fails, return the questions so user can still use them
-          return of({ questions: firestoreQuestions });
+          return of({ questions: firestoreQuestions, category: primaryCategory });
         })
       );
     } catch (error) {

@@ -5,7 +5,7 @@ A daily US Citizenship quiz app similar to Wordle and Connections, built with An
 ## Features
 
 - **Daily Quiz**: 5 questions per day, same for all users
-- **Automatic Question Generation**: Cloud Function generates new questions daily at midnight UTC
+- **Automatic Question Generation**: Cloud Function generates new questions daily at midnight NYC time
 - **Progress Tracking**: Resume where you left off if you close the app
 - **Statistics**: Track your games played, streaks, and score distribution
 - **Dark Mode**: Toggle between light and dark themes
@@ -40,7 +40,7 @@ npm install
    firebase deploy --only functions
    ```
    
-   Alternatively, you can manually add questions via Firebase Console (see `scripts/populate-firestore-simple.md`)
+   Questions are automatically generated daily, but you can manually trigger generation via the HTTP function (see `functions/README.md`)
 
 ### Development
 

@@ -38,6 +38,28 @@
   width: 100%;
 }
 
+.category-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e40af;
+}
+
+.category-icon {
+  font-size: 16px;
+}
+
+.category-text {
+  text-transform: capitalize;
+}
+
 .question-header {
   margin-bottom: 24px;
 }
@@ -227,5 +249,11 @@
 
 .dark .next-quiz-text strong {
   color: #60a5fa;
+}
+
+.dark .category-badge {
+  background: #1e3a8a;
+  border-color: #3b82f6;
+  color: #93c5fd;
 }
 
