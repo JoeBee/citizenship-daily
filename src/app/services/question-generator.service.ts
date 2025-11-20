@@ -17,12 +17,6 @@ const questionBank: Question[] = [
     category: "Government"
   },
   {
-    questionText: "Who is the Chief Justice of the United States now?",
-    options: ["John Roberts", "Ruth Bader Ginsburg", "Sonia Sotomayor", "Clarence Thomas"],
-    correctAnswerIndex: 0,
-    category: "Government"
-  },
-  {
     questionText: "What is the supreme law of the land?",
     options: ["The Declaration of Independence", "The Constitution", "The Bill of Rights", "The Articles of Confederation"],
     correctAnswerIndex: 1,
@@ -39,18 +33,6 @@ const questionBank: Question[] = [
     options: ["25", "27", "30", "35"],
     correctAnswerIndex: 1,
     category: "Constitution"
-  },
-  {
-    questionText: "What is the name of the President of the United States now?",
-    options: ["Joe Biden", "Donald Trump", "Barack Obama", "Kamala Harris"],
-    correctAnswerIndex: 0,
-    category: "Government"
-  },
-  {
-    questionText: "What is the name of the Vice President of the United States now?",
-    options: ["Mike Pence", "Kamala Harris", "Nancy Pelosi", "Chuck Schumer"],
-    correctAnswerIndex: 1,
-    category: "Government"
   },
   {
     questionText: "How many U.S. Representatives are there?",
@@ -279,45 +261,28 @@ const questionBank: Question[] = [
 /**
  * Selects 5 random questions from the question bank
  * Uses the date as a seed to ensure the same questions are selected for the same date
+ * All questions have equal probability of being selected
  */
 export function generateDailyQuestions(dateString: string): Question[] {
   // Use date string as seed for consistent selection
   const seed = dateString.split('-').map(Number).reduce((a, b) => a + b, 0);
-  
+
   // Simple seeded random number generator
   let seedValue = seed;
   function seededRandom() {
     seedValue = (seedValue * 9301 + 49297) % 233280;
     return seedValue / 233280;
   }
-  
-  // Shuffle questions using seeded random
-  const shuffled = [...questionBank].sort(() => seededRandom() - 0.5);
-  
-  // Select 5 questions ensuring variety
-  const selected: Question[] = [];
-  const usedCategories = new Set<string>();
-  
-  for (const question of shuffled) {
-    if (selected.length >= 5) break;
-    
-    // Try to get variety in categories, but don't be too strict
-    if (selected.length < 3 || !usedCategories.has(question.category) || selected.length >= 4) {
-      selected.push(question);
-      usedCategories.add(question.category);
-    }
+
+  // Fisher-Yates shuffle algorithm for uniform distribution
+  const shuffled = [...questionBank];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(seededRandom() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
-  
-  // If we don't have 5 yet, fill with any remaining questions
-  while (selected.length < 5) {
-    for (const question of shuffled) {
-      if (selected.length >= 5) break;
-      if (!selected.includes(question)) {
-        selected.push(question);
-      }
-    }
-  }
-  
-  return selected.slice(0, 5);
+
+  // Simply select the first 5 questions from the shuffled array
+  // This ensures equal probability for all questions
+  return shuffled.slice(0, 5);
 }
 

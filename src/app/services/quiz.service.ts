@@ -58,9 +58,11 @@ export class QuizService {
 
   getCurrentDateString(): string {
     const now = new Date();
-    const year = now.getUTCFullYear();
-    const month = String(now.getUTCMonth() + 1).padStart(2, '0');
-    const day = String(now.getUTCDate()).padStart(2, '0');
+    // Convert to NYC timezone (EST/EDT) to match Cloud Function
+    const nycTime = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+    const year = nycTime.getFullYear();
+    const month = String(nycTime.getMonth() + 1).padStart(2, '0');
+    const day = String(nycTime.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
 

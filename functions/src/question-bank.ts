@@ -2,9 +2,8 @@
 // Based on the official USCIS 100 Civics Questions for the Naturalization Test
 // Source: USCIS Official Study Materials (uscis.gov)
 // 
-// NOTE: Some questions have answers that vary by location or change over time.
-// These are marked with comments indicating which answers should be commented out
-// and dynamically updated based on user location or current date.
+// NOTE: Questions with location-specific or time-sensitive answers have been removed
+// to ensure consistent quiz experiences for all users.
 
 export interface Question {
   questionText: string;
@@ -132,22 +131,6 @@ export const questionBank: Question[] = [
     category: "System of Government"
   },
   {
-    questionText: "Who is one of your state's U.S. Senators now?",
-    // NOTE: This answer varies by state and over time. 
-    // LOCATION-SPECIFIC: Must be dynamically set based on user's state
-    // COMMENTED OUT: Actual correct answer varies by user's location
-    // Example correct answers that should be commented out:
-    // "Alex Padilla" (California), "Chuck Schumer" (New York), "Marco Rubio" (Florida), etc.
-    options: [
-      "[Your state's current U.S. Senator]", // LOCATION-SPECIFIC - DYNAMICALLY SET PER USER'S STATE
-      "John Smith", // WRONG - example placeholder
-      "Jane Doe", // WRONG - example placeholder
-      "Robert Johnson" // WRONG - example placeholder
-    ],
-    correctAnswerIndex: 0,
-    category: "System of Government"
-  },
-  {
     questionText: "The House of Representatives has how many voting members?",
     options: ["100", "200", "435", "500"],
     correctAnswerIndex: 2,
@@ -156,22 +139,6 @@ export const questionBank: Question[] = [
   {
     questionText: "We elect a U.S. Representative for how many years?",
     options: ["2", "4", "6", "8"],
-    correctAnswerIndex: 0,
-    category: "System of Government"
-  },
-  {
-    questionText: "Name your U.S. Representative.",
-    // NOTE: This answer varies by congressional district and over time.
-    // LOCATION-SPECIFIC: Must be dynamically set based on user's congressional district
-    // COMMENTED OUT: Actual correct answer varies by user's congressional district
-    // Example correct answers that should be commented out:
-    // "Nancy Pelosi" (CA-11), "Alexandria Ocasio-Cortez" (NY-14), "Jim Jordan" (OH-4), etc.
-    options: [
-      "[Your congressional district's current U.S. Representative]", // LOCATION-SPECIFIC - DYNAMICALLY SET PER USER'S DISTRICT
-      "John Smith", // WRONG - example placeholder
-      "Jane Doe", // WRONG - example placeholder
-      "Robert Johnson" // WRONG - example placeholder
-    ],
     correctAnswerIndex: 0,
     category: "System of Government"
   },
@@ -197,38 +164,6 @@ export const questionBank: Question[] = [
     questionText: "In what month do we vote for President?",
     options: ["January", "July", "November", "October"],
     correctAnswerIndex: 2,
-    category: "System of Government"
-  },
-  {
-    questionText: "What is the name of the President of the United States now?",
-    // NOTE: This answer changes over time when new presidents are elected.
-    // TIME-SENSITIVE: Update when presidential term changes
-    // COMMENTED OUT: Actual correct answer changes over time
-    // "Joe Biden", // TIME-SENSITIVE - CORRECT AS OF 2024, BUT CHANGES WITH PRESIDENCY
-    options: [
-      "[Current President of the United States]", // TIME-SENSITIVE - DYNAMICALLY SET BASED ON CURRENT DATE
-      // "Joe Biden", // COMMENTED OUT - Was correct as of 2024, update when presidency changes
-      "Donald Trump", // WRONG (or could become correct in future elections)
-      "Barack Obama", // WRONG
-      "Kamala Harris" // WRONG
-    ],
-    correctAnswerIndex: 0,
-    category: "System of Government"
-  },
-  {
-    questionText: "What is the name of the Vice President of the United States now?",
-    // NOTE: This answer changes over time when new vice presidents take office.
-    // TIME-SENSITIVE: Update when vice presidential term changes
-    // COMMENTED OUT: Actual correct answer changes over time
-    // "Kamala Harris", // TIME-SENSITIVE - CORRECT AS OF 2024, BUT CHANGES WITH VICE PRESIDENCY
-    options: [
-      "[Current Vice President of the United States]", // TIME-SENSITIVE - DYNAMICALLY SET BASED ON CURRENT DATE
-      // "Kamala Harris", // COMMENTED OUT - Was correct as of 2024, update when vice presidency changes
-      "Mike Pence", // WRONG (or could become correct in future elections)
-      "Nancy Pelosi", // WRONG
-      "Chuck Schumer" // WRONG
-    ],
-    correctAnswerIndex: 0,
     category: "System of Government"
   },
   {
@@ -292,22 +227,6 @@ export const questionBank: Question[] = [
     category: "System of Government"
   },
   {
-    questionText: "Who is the Chief Justice of the United States now?",
-    // NOTE: This answer changes over time when new chief justices are appointed.
-    // TIME-SENSITIVE: Update when chief justice appointment changes
-    // COMMENTED OUT: Actual correct answer changes over time
-    // "John Roberts", // TIME-SENSITIVE - CORRECT AS OF 2024, BUT CHANGES WITH CHIEF JUSTICE APPOINTMENT
-    options: [
-      "[Current Chief Justice of the United States]", // TIME-SENSITIVE - DYNAMICALLY SET BASED ON CURRENT DATE
-      // "John Roberts", // COMMENTED OUT - Was correct as of 2024, update when chief justice changes
-      "Ruth Bader Ginsburg", // WRONG (deceased)
-      "Sonia Sotomayor", // WRONG
-      "Clarence Thomas" // WRONG
-    ],
-    correctAnswerIndex: 0,
-    category: "System of Government"
-  },
-  {
     questionText: "Under our Constitution, some powers belong to the federal government. What is one power of the federal government?",
     options: ["To provide police protection", "To provide schooling and education", "To print money", "To issue driver's licenses"],
     correctAnswerIndex: 2,
@@ -320,75 +239,8 @@ export const questionBank: Question[] = [
     category: "System of Government"
   },
   {
-    questionText: "Who is the Governor of your state now?",
-    // NOTE: This answer varies by state and over time.
-    // LOCATION-SPECIFIC: Must be dynamically set based on user's state
-    // TIME-SENSITIVE: Updates when governors change
-    // COMMENTED OUT: Actual correct answer varies by user's location and changes over time
-    // Example correct answers that should be commented out:
-    // "Gavin Newsom" (California), "Kathy Hochul" (New York), "Ron DeSantis" (Florida), etc.
-    options: [
-      "[Your state's current Governor]", // LOCATION-SPECIFIC - DYNAMICALLY SET PER USER'S STATE
-      // "Gavin Newsom", // COMMENTED OUT - Example for California only, varies by state
-      "John Smith", // WRONG - example placeholder
-      "Jane Doe", // WRONG - example placeholder
-      "Robert Johnson" // WRONG - example placeholder
-    ],
-    correctAnswerIndex: 0,
-    category: "System of Government"
-  },
-  {
-    questionText: "What is the capital of your state?",
-    // NOTE: This answer varies by state (but doesn't change over time).
-    // LOCATION-SPECIFIC: Must be dynamically set based on user's state
-    // COMMENTED OUT: Actual correct answer varies by user's location
-    // Example correct answers that should be commented out:
-    // "Sacramento" (California), "Albany" (New York), "Tallahassee" (Florida), etc.
-    options: [
-      "[Your state's capital city]", // LOCATION-SPECIFIC - DYNAMICALLY SET PER USER'S STATE
-      // "Sacramento", // COMMENTED OUT - Example for California only, varies by state
-      "New York City", // WRONG - example placeholder (common wrong answer)
-      "Los Angeles", // WRONG - example placeholder (common wrong answer)
-      "Chicago" // WRONG - example placeholder (common wrong answer)
-    ],
-    correctAnswerIndex: 0,
-    category: "System of Government"
-  },
-  {
     questionText: "What are the two major political parties in the United States?",
     options: ["Democrats and Republicans", "Republicans and Libertarians", "Democrats and Independents", "Republicans and Socialists"],
-    correctAnswerIndex: 0,
-    category: "System of Government"
-  },
-  {
-    questionText: "What is the political party of the President now?",
-    // NOTE: This answer changes over time when new presidents from different parties are elected.
-    // TIME-SENSITIVE: Update when presidential party changes
-    // COMMENTED OUT: Actual correct answer changes over time
-    // "Democratic", // TIME-SENSITIVE - CORRECT AS OF 2024, BUT CHANGES WITH PRESIDENTIAL PARTY
-    options: [
-      "[Current President's political party]", // TIME-SENSITIVE - DYNAMICALLY SET BASED ON CURRENT PRESIDENT
-      // "Democratic", // COMMENTED OUT - Was correct as of 2024 (Joe Biden), update when presidential party changes
-      "Republican", // WRONG (or could become correct in future elections)
-      "Independent", // WRONG
-      "Libertarian" // WRONG
-    ],
-    correctAnswerIndex: 0,
-    category: "System of Government"
-  },
-  {
-    questionText: "What is the name of the Speaker of the House of Representatives now?",
-    // NOTE: This answer changes over time when new speakers are elected.
-    // TIME-SENSITIVE: Update when speaker election changes
-    // COMMENTED OUT: Actual correct answer changes over time
-    // "Mike Johnson", // TIME-SENSITIVE - CORRECT AS OF 2024, BUT CHANGES WITH SPEAKER ELECTION
-    options: [
-      "[Current Speaker of the House]", // TIME-SENSITIVE - DYNAMICALLY SET BASED ON CURRENT DATE
-      // "Mike Johnson", // COMMENTED OUT - Was correct as of 2024, update when speaker changes
-      "Nancy Pelosi", // WRONG (or could become correct in future elections)
-      "Kevin McCarthy", // WRONG
-      "Chuck Schumer" // WRONG
-    ],
     correctAnswerIndex: 0,
     category: "System of Government"
   },
@@ -729,6 +581,7 @@ export const questionBank: Question[] = [
 /**
  * Selects 5 random questions from the question bank
  * Uses the date as a seed to ensure the same questions are selected for the same date
+ * All questions have equal probability of being selected
  */
 export function generateDailyQuestions(dateString: string): Question[] {
   // Use date string as seed for consistent selection
@@ -741,32 +594,14 @@ export function generateDailyQuestions(dateString: string): Question[] {
     return seedValue / 233280;
   }
 
-  // Shuffle questions using seeded random
-  const shuffled = [...questionBank].sort(() => seededRandom() - 0.5);
-
-  // Select 5 questions ensuring variety
-  const selected: Question[] = [];
-  const usedCategories = new Set<string>();
-
-  for (const question of shuffled) {
-    if (selected.length >= 5) break;
-
-    // Try to get variety in categories, but don't be too strict
-    if (selected.length < 3 || !usedCategories.has(question.category) || selected.length >= 4) {
-      selected.push(question);
-      usedCategories.add(question.category);
-    }
+  // Fisher-Yates shuffle algorithm for uniform distribution
+  const shuffled = [...questionBank];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(seededRandom() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
 
-  // If we don't have 5 yet, fill with any remaining questions
-  while (selected.length < 5) {
-    for (const question of shuffled) {
-      if (selected.length >= 5) break;
-      if (!selected.includes(question)) {
-        selected.push(question);
-      }
-    }
-  }
-
-  return selected.slice(0, 5);
+  // Simply select the first 5 questions from the shuffled array
+  // This ensures equal probability for all questions
+  return shuffled.slice(0, 5);
 }
