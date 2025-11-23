@@ -15,9 +15,59 @@
 .modal-content {
   background: white;
   border-radius: 12px;
-  max-width: 400px;
+  max-width: 500px;
   width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.flag-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.flag-background .flag-svg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.flag-background .flag-group {
+  animation: flagFlow 5s ease-in-out infinite;
+  transform-origin: left center;
+}
+
+.flag-background .stripe {
+  transform-origin: center;
+}
+
+.flag-background .canton {
+  transform-origin: left top;
+}
+
+@keyframes flagFlow {
+  0%, 100% {
+    transform: translateX(0) translateY(0) rotate(0deg) skewY(0deg);
+  }
+  25% {
+    transform: translateX(-5px) translateY(-2px) rotate(-0.8deg) skewY(-0.3deg);
+  }
+  50% {
+    transform: translateX(-8px) translateY(-4px) rotate(-1.2deg) skewY(-0.6deg);
+  }
+  75% {
+    transform: translateX(-5px) translateY(-2px) rotate(-0.8deg) skewY(-0.3deg);
+  }
 }
 
 .modal-header {
@@ -26,6 +76,8 @@
   align-items: center;
   padding: 20px;
   border-bottom: 1px solid #e5e7eb;
+  position: relative;
+  z-index: 1;
 }
 
 .modal-header h2 {
@@ -53,6 +105,8 @@
 
 .info-content {
   padding: 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .info-description {
@@ -62,10 +116,46 @@
   margin-bottom: 24px;
 }
 
+.info-section {
+  margin-bottom: 24px;
+}
+
+.info-section h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 12px 0;
+}
+
+.info-section p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #374151;
+  margin: 0 0 12px 0;
+}
+
+.info-section ul {
+  margin: 12px 0;
+  padding-left: 24px;
+  color: #374151;
+}
+
+.info-section li {
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.info-section strong {
+  color: #111827;
+  font-weight: 600;
+}
+
 .info-features {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  margin-top: 24px;
 }
 
 .feature-item {
@@ -90,6 +180,10 @@
   background: #1f2937;
 }
 
+.dark .flag-background {
+  opacity: 0.18;
+}
+
 .dark .modal-header {
   border-bottom-color: #374151;
 }
@@ -108,6 +202,26 @@
 
 .dark .info-description {
   color: #d1d5db;
+}
+
+.dark .info-section h3 {
+  color: white;
+}
+
+.dark .info-section p {
+  color: #d1d5db;
+}
+
+.dark .info-section ul {
+  color: #d1d5db;
+}
+
+.dark .info-section li {
+  color: #d1d5db;
+}
+
+.dark .info-section strong {
+  color: white;
 }
 
 .dark .feature-text {
@@ -139,6 +253,22 @@
   .info-description {
     font-size: 15px;
     margin-bottom: 20px;
+  }
+  
+  .info-section {
+    margin-bottom: 20px;
+  }
+  
+  .info-section h3 {
+    font-size: 16px;
+  }
+  
+  .info-section p {
+    font-size: 14px;
+  }
+  
+  .info-section li {
+    font-size: 14px;
   }
   
   .feature-text {

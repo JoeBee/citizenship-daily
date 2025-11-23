@@ -27,20 +27,20 @@ export class ResultsComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private storageService: StorageService,
     private quizService: QuizService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     try {
       const state = history.state;
       const currentDate = this.quizService.getCurrentDateString();
-      
+
       if (state && state.score !== undefined) {
         // Data passed via router state
         this.score = state.score;
         this.answers = state.answers || [];
         this.questions = state.questions || [];
         this.quizDate = state.quizDate || '';
-        
+
         // Also save to storage for future visits
         this.storageService.saveResultsData({
           quizDate: this.quizDate || currentDate,
@@ -51,14 +51,14 @@ export class ResultsComponent implements OnInit, AfterViewInit {
       } else {
         // Try to load from storage (for returning users)
         const savedResults = this.storageService.getResultsData();
-        
+
         if (savedResults && savedResults.quizDate === currentDate) {
           // Load saved results for today's quiz
           this.score = savedResults.score || 0;
           this.answers = savedResults.answers || [];
           this.questions = savedResults.questions || [];
           this.quizDate = savedResults.quizDate || currentDate;
-          
+
           // If we don't have valid questions, mark for redirect
           if (!this.questions || this.questions.length === 0) {
             console.warn('Results loaded but no questions found, will redirect to quiz');
@@ -77,7 +77,7 @@ export class ResultsComponent implements OnInit, AfterViewInit {
           return;
         }
       }
-      
+
       // Validate we have the required data
       if (!this.questions || this.questions.length === 0) {
         console.error('Results component initialized without questions, will redirect');
@@ -128,14 +128,14 @@ export class ResultsComponent implements OnInit, AfterViewInit {
     const dateStr = this.quizDate || new Date().toISOString().split('T')[0];
     const scoreIcons = this.getScoreIcons();
     const scoreLine = `Score: ${this.score}/${this.totalQuestions}`;
-    
+
     // Create emoji grid (5 squares in a row)
     const emojiGrid = this.answers.map((answer, index) => {
       const isCorrect = answer === this.questions[index]?.correctAnswerIndex;
       return isCorrect ? '✓' : '✗';
     }).join(' ');
-    
-    return `Citizenship Daily ${dateStr}\n${scoreIcons}\n${scoreLine}\n${emojiGrid}\n\nTest your knowledge at citizenship-daily-ef3e3.web.app`;
+
+    return `Citizenship Daily ${dateStr}\n${scoreIcons}\n${scoreLine}\n${emojiGrid}\n\nTest your knowledge at\nhttps://citizenship-daily-ef3e3.web.app`;
   }
 
   private fallbackCopy(text: string): void {
