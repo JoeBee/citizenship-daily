@@ -1,0 +1,90 @@
+<div class="results-container">
+  @if (showCopyNotification) {
+  <div class="copy-notification">
+    <span class="copy-notification-icon">✓</span>
+    <span class="copy-notification-text">Results copied to clipboard!</span>
+  </div>
+  }
+  @if (questions && questions.length > 0) {
+  <div class="results-content">
+    <div class="quiz-tagline">
+      <div class="tagline-title">
+        <app-icon name="flag" [size]="28" class="flag-icon" aria-label="American flag"></app-icon>
+        Citizenship Daily
+        <span class="statue-icon">🗽</span>
+      </div>
+      <div class="tagline-text">Whether you're already American or working on it</div>
+    </div>
+    <div class="score-icons-display">
+      <span class="score-icons">{{ getScoreIcons() }}</span>
+    </div>
+    <div class="score-display">
+      <div class="score-number">{{ score }}/{{ totalQuestions }}</div>
+      <div class="score-label">Your Score</div>
+    </div>
+
+    <div class="results-grid">
+      @for (question of questions; track $index) {
+      <div class="result-item" [class.correct]="isCorrect($index)" [class.incorrect]="!isCorrect($index)">
+        <div class="result-header">
+          <div class="result-number">Question {{ $index + 1 }}</div>
+          <div class="result-status" [class.status-correct]="isCorrect($index)"
+            [class.status-incorrect]="!isCorrect($index)">
+            @if (isCorrect($index)) {
+            <app-icon name="check-circle" [size]="24" class="icon-correct"></app-icon>
+            <span>Correct</span>
+            } @else {
+            <app-icon name="x-circle" [size]="24" class="icon-incorrect"></app-icon>
+            <span>Incorrect</span>
+            }
+          </div>
+        </div>
+        <div class="result-question">{{ question.questionText }}</div>
+        <div class="answer-section">
+          <div class="answer-row">
+            <span class="answer-label">Your answer:</span>
+            <span class="answer-value" [class.correct-answer-value]="isCorrect($index)"
+              [class.incorrect-answer-value]="!isCorrect($index)">
+              {{ question.options[answers[$index]] }}
+            </span>
+          </div>
+          <div class="answer-row">
+            <span class="answer-label">Correct answer:</span>
+            <span class="answer-value correct-answer-value">
+              {{ question.options[question.correctAnswerIndex] }}
+            </span>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+
+    <div class="results-actions">
+      <button class="share-button" (click)="shareResults()">
+        Share Results
+      </button>
+    </div>
+
+    <div class="encouragement-message">
+      <div class="encouragement-icons">
+        <span class="usa-title-inline">
+          <app-icon name="flag" [size]="28" class="flag-icon" aria-label="American flag"></app-icon>
+          United States of America
+        </span>
+        <span class="encouragement-icon">📜</span>
+      </div>
+      <p class="come-back-text">
+        🗽 Test your knowledge daily with new questions about America's history, government, and values. Keep learning
+        and come back tomorrow! ⭐
+      </p>
+    </div>
+  </div>
+  } @else {
+  <div class="results-content">
+    <h1 class="results-title">Citizenship Daily</h1>
+    <div class="loading" style="text-align: center; padding: 40px;">
+      <p>Loading results...</p>
+    </div>
+  </div>
+  }
+</div>

@@ -1,0 +1,175 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  transition: color 0.2s;
+}
+
+.close-button:hover {
+  color: #374151;
+}
+
+.stats-content {
+  padding: 20px;
+}
+
+.stat-row {
+  text-align: center;
+  padding: 20px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.stat-row:last-of-type {
+  border-bottom: 2px solid #e5e7eb;
+  margin-bottom: 24px;
+}
+
+.stat-value {
+  font-size: 36px;
+  font-weight: 700;
+  color: #3b82f6;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.distribution-section {
+  margin-top: 24px;
+}
+
+.distribution-section h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #374151;
+}
+
+.distribution-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.distribution-label {
+  width: 40px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.distribution-bar-container {
+  flex: 1;
+  height: 24px;
+  background: #f3f4f6;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.distribution-bar {
+  height: 100%;
+  background: #3b82f6;
+  transition: width 0.3s;
+}
+
+.distribution-count {
+  width: 40px;
+  text-align: right;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+/* Dark mode */
+.dark .modal-content {
+  background: #1f2937;
+}
+
+.dark .modal-header {
+  border-bottom-color: #374151;
+}
+
+.dark .modal-header h2 {
+  color: white;
+}
+
+.dark .close-button {
+  color: #9ca3af;
+}
+
+.dark .close-button:hover {
+  color: white;
+}
+
+.dark .stat-row {
+  border-bottom-color: #374151;
+}
+
+.dark .stat-row:last-of-type {
+  border-bottom-color: #4b5563;
+}
+
+.dark .stat-label {
+  color: #9ca3af;
+}
+
+.dark .distribution-section h3 {
+  color: white;
+}
+
+.dark .distribution-bar-container {
+  background: #374151;
+}
+
+.dark .distribution-count {
+  color: #9ca3af;
+}
+

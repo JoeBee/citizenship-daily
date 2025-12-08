@@ -1,0 +1,229 @@
+@if (isOpen) {
+  <div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="flag-background">
+        <svg class="flag-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#B22234" stop-opacity="0.2"/>
+              <stop offset="50%" stop-color="#B22234" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#B22234" stop-opacity="0.2"/>
+            </linearGradient>
+            <linearGradient id="whiteGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.15"/>
+              <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.2"/>
+              <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.15"/>
+            </linearGradient>
+            <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#3C3B6E" stop-opacity="0.2"/>
+              <stop offset="50%" stop-color="#3C3B6E" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#3C3B6E" stop-opacity="0.2"/>
+            </linearGradient>
+          </defs>
+          <g class="flag-group">
+            <!-- Red stripes with flowing curves -->
+            <path class="stripe stripe-red" fill="url(#redGradient)">
+              <animate attributeName="d" 
+                values="M0,0 Q300,15 600,0 Q900,15 1200,0 L1200,61.5 Q900,76.5 600,61.5 Q300,76.5 0,61.5 Z;
+                        M0,0 Q300,20 600,5 Q900,20 1200,5 L1200,66.5 Q900,81.5 600,66.5 Q300,81.5 0,66.5 Z;
+                        M0,0 Q300,25 600,10 Q900,25 1200,10 L1200,71.5 Q900,86.5 600,71.5 Q300,86.5 0,71.5 Z;
+                        M0,0 Q300,20 600,5 Q900,20 1200,5 L1200,66.5 Q900,81.5 600,66.5 Q300,81.5 0,66.5 Z;
+                        M0,0 Q300,15 600,0 Q900,15 1200,0 L1200,61.5 Q900,76.5 600,61.5 Q300,76.5 0,61.5 Z"
+                dur="4s" repeatCount="indefinite"/>
+            </path>
+            <path class="stripe stripe-red" fill="url(#redGradient)">
+              <animate attributeName="d" 
+                values="M0,123 Q300,138 600,123 Q900,138 1200,123 L1200,184.5 Q900,199.5 600,184.5 Q300,199.5 0,184.5 Z;
+                        M0,128 Q300,143 600,128 Q900,143 1200,128 L1200,189.5 Q900,204.5 600,189.5 Q300,204.5 0,189.5 Z;
+                        M0,133 Q300,148 600,133 Q900,148 1200,133 L1200,194.5 Q900,209.5 600,194.5 Q300,209.5 0,194.5 Z;
+                        M0,128 Q300,143 600,128 Q900,143 1200,128 L1200,189.5 Q900,204.5 600,189.5 Q300,204.5 0,189.5 Z;
+                        M0,123 Q300,138 600,123 Q900,138 1200,123 L1200,184.5 Q900,199.5 600,184.5 Q300,199.5 0,184.5 Z"
+                dur="4s" begin="0.3s" repeatCount="indefinite"/>
+            </path>
+            <path class="stripe stripe-red" fill="url(#redGradient)">
+              <animate attributeName="d" 
+                values="M0,246 Q300,261 600,246 Q900,261 1200,246 L1200,307.5 Q900,322.5 600,307.5 Q300,322.5 0,307.5 Z;
+                        M0,251 Q300,266 600,251 Q900,266 1200,251 L1200,312.5 Q900,327.5 600,312.5 Q300,327.5 0,312.5 Z;
+                        M0,256 Q300,271 600,256 Q900,271 1200,256 L1200,317.5 Q900,332.5 600,317.5 Q300,332.5 0,317.5 Z;
+                        M0,251 Q300,266 600,251 Q900,266 1200,251 L1200,312.5 Q900,327.5 600,312.5 Q300,327.5 0,312.5 Z;
+                        M0,246 Q300,261 600,246 Q900,261 1200,246 L1200,307.5 Q900,322.5 600,307.5 Q300,322.5 0,307.5 Z"
+                dur="4s" begin="0.6s" repeatCount="indefinite"/>
+            </path>
+            <path class="stripe stripe-red" fill="url(#redGradient)">
+              <animate attributeName="d" 
+                values="M0,369 Q300,384 600,369 Q900,384 1200,369 L1200,430.5 Q900,445.5 600,430.5 Q300,445.5 0,430.5 Z;
+                        M0,374 Q300,389 600,374 Q900,389 1200,374 L1200,435.5 Q900,450.5 600,435.5 Q300,450.5 0,435.5 Z;
+                        M0,379 Q300,394 600,379 Q900,394 1200,379 L1200,440.5 Q900,455.5 600,440.5 Q300,455.5 0,440.5 Z;
+                        M0,374 Q300,389 600,374 Q900,389 1200,374 L1200,435.5 Q900,450.5 600,435.5 Q300,450.5 0,435.5 Z;
+                        M0,369 Q300,384 600,369 Q900,384 1200,369 L1200,430.5 Q900,445.5 600,430.5 Q300,445.5 0,430.5 Z"
+                dur="4s" begin="0.9s" repeatCount="indefinite"/>
+            </path>
+            <path class="stripe stripe-red" fill="url(#redGradient)">
+              <animate attributeName="d" 
+                values="M0,492 Q300,507 600,492 Q900,507 1200,492 L1200,553.5 Q900,568.5 600,553.5 Q300,568.5 0,553.5 Z;
+                        M0,497 Q300,512 600,497 Q900,512 1200,497 L1200,558.5 Q900,573.5 600,558.5 Q300,573.5 0,558.5 Z;
+                        M0,502 Q300,517 600,502 Q900,517 1200,502 L1200,563.5 Q900,578.5 600,563.5 Q300,578.5 0,563.5 Z;
+                        M0,497 Q300,512 600,497 Q900,512 1200,497 L1200,558.5 Q900,573.5 600,558.5 Q300,573.5 0,558.5 Z;
+                        M0,492 Q300,507 600,492 Q900,507 1200,492 L1200,553.5 Q900,568.5 600,553.5 Q300,568.5 0,553.5 Z"
+                dur="4s" begin="1.2s" repeatCount="indefinite"/>
+            </path>
+            <path class="stripe stripe-red" fill="url(#redGradient)">
+              <animate attributeName="d" 
+                values="M0,615 Q300,630 600,615 Q900,630 1200,615 L1200,676.5 Q900,691.5 600,676.5 Q300,691.5 0,676.5 Z;
+                        M0,620 Q300,635 600,620 Q900,635 1200,620 L1200,681.5 Q900,696.5 600,681.5 Q300,696.5 0,681.5 Z;
+                        M0,625 Q300,640 600,625 Q900,640 1200,625 L1200,686.5 Q900,701.5 600,686.5 Q300,701.5 0,686.5 Z;
+                        M0,620 Q300,635 600,620 Q900,635 1200,620 L1200,681.5 Q900,696.5 600,681.5 Q300,696.5 0,681.5 Z;
+                        M0,615 Q300,630 600,615 Q900,630 1200,615 L1200,676.5 Q900,691.5 600,676.5 Q300,691.5 0,676.5 Z"
+                dur="4s" begin="1.5s" repeatCount="indefinite"/>
+            </path>
+            <path class="stripe stripe-red" fill="url(#redGradient)">
+              <animate attributeName="d" 
+                values="M0,738 Q300,753 600,738 Q900,753 1200,738 L1200,800 Q900,815 600,800 Q300,815 0,800 Z;
+                        M0,743 Q300,758 600,743 Q900,758 1200,743 L1200,805 Q900,820 600,805 Q300,820 0,805 Z;
+                        M0,748 Q300,763 600,748 Q900,763 1200,748 L1200,810 Q900,825 600,810 Q300,825 0,810 Z;
+                        M0,743 Q300,758 600,743 Q900,758 1200,743 L1200,805 Q900,820 600,805 Q300,820 0,805 Z;
+                        M0,738 Q300,753 600,738 Q900,753 1200,738 L1200,800 Q900,815 600,800 Q300,815 0,800 Z"
+                dur="4s" begin="1.8s" repeatCount="indefinite"/>
+            </path>
+            
+            <!-- White stripes with flowing curves -->
+            <path class="stripe stripe-white" fill="url(#whiteGradient)">
+              <animate attributeName="d" 
+                values="M0,61.5 Q300,76.5 600,61.5 Q900,76.5 1200,61.5 L1200,123 Q900,138 600,123 Q300,138 0,123 Z;
+                        M0,66.5 Q300,81.5 600,66.5 Q900,81.5 1200,66.5 L1200,128 Q900,143 600,128 Q300,143 0,128 Z;
+                        M0,71.5 Q300,86.5 600,71.5 Q900,86.5 1200,71.5 L1200,133 Q900,148 600,133 Q300,148 0,133 Z;
+                        M0,66.5 Q300,81.5 600,66.5 Q900,81.5 1200,66.5 L1200,128 Q900,143 600,128 Q300,143 0,128 Z;
+                        M0,61.5 Q300,76.5 600,61.5 Q900,76.5 1200,61.5 L1200,123 Q900,138 600,123 Q300,138 0,123 Z"
+                dur="4s" begin="0.15s" repeatCount="indefinite"/>
+            </path>
+            <path class="stripe stripe-white" fill="url(#whiteGradient)">
+              <animate attributeName="d" 
+                values="M0,184.5 Q300,199.5 600,184.5 Q900,199.5 1200,184.5 L1200,246 Q900,261 600,246 Q300,261 0,246 Z;
+                        M0,189.5 Q300,204.5 600,189.5 Q900,204.5 1200,189.5 L1200,251 Q900,266 600,251 Q300,266 0,251 Z;
+                        M0,194.5 Q300,209.5 600,194.5 Q900,209.5 1200,194.5 L1200,256 Q900,271 600,256 Q300,271 0,256 Z;
+                        M0,189.5 Q300,204.5 600,189.5 Q900,204.5 1200,189.5 L1200,251 Q900,266 600,251 Q300,266 0,251 Z;
+                        M0,184.5 Q300,199.5 600,184.5 Q900,199.5 1200,184.5 L1200,246 Q900,261 600,246 Q300,261 0,246 Z"
+                dur="4s" begin="0.45s" repeatCount="indefinite"/>
+            </path>
+            <path class="stripe stripe-white" fill="url(#whiteGradient)">
+              <animate attributeName="d" 
+                values="M0,307.5 Q300,322.5 600,307.5 Q900,322.5 1200,307.5 L1200,369 Q900,384 600,369 Q300,384 0,369 Z;
+                        M0,312.5 Q300,327.5 600,312.5 Q900,327.5 1200,312.5 L1200,374 Q900,389 600,374 Q300,389 0,374 Z;
+                        M0,317.5 Q300,332.5 600,317.5 Q900,332.5 1200,317.5 L1200,379 Q900,394 600,379 Q300,394 0,379 Z;
+                        M0,312.5 Q300,327.5 600,312.5 Q900,327.5 1200,312.5 L1200,374 Q900,389 600,374 Q300,389 0,374 Z;
+                        M0,307.5 Q300,322.5 600,307.5 Q900,322.5 1200,307.5 L1200,369 Q900,384 600,369 Q300,384 0,369 Z"
+                dur="4s" begin="0.75s" repeatCount="indefinite"/>
+            </path>
+            <path class="stripe stripe-white" fill="url(#whiteGradient)">
+              <animate attributeName="d" 
+                values="M0,430.5 Q300,445.5 600,430.5 Q900,445.5 1200,430.5 L1200,492 Q900,507 600,492 Q300,507 0,492 Z;
+                        M0,435.5 Q300,450.5 600,435.5 Q900,450.5 1200,435.5 L1200,497 Q900,512 600,497 Q300,512 0,497 Z;
+                        M0,440.5 Q300,455.5 600,440.5 Q900,455.5 1200,440.5 L1200,502 Q900,517 600,502 Q300,517 0,502 Z;
+                        M0,435.5 Q300,450.5 600,435.5 Q900,450.5 1200,435.5 L1200,497 Q900,512 600,497 Q300,512 0,497 Z;
+                        M0,430.5 Q300,445.5 600,430.5 Q900,445.5 1200,430.5 L1200,492 Q900,507 600,492 Q300,507 0,492 Z"
+                dur="4s" begin="1.05s" repeatCount="indefinite"/>
+            </path>
+            <path class="stripe stripe-white" fill="url(#whiteGradient)">
+              <animate attributeName="d" 
+                values="M0,553.5 Q300,568.5 600,553.5 Q900,568.5 1200,553.5 L1200,615 Q900,630 600,615 Q300,630 0,615 Z;
+                        M0,558.5 Q300,573.5 600,558.5 Q900,573.5 1200,558.5 L1200,620 Q900,635 600,620 Q300,635 0,620 Z;
+                        M0,563.5 Q300,578.5 600,563.5 Q900,578.5 1200,563.5 L1200,625 Q900,640 600,625 Q300,640 0,625 Z;
+                        M0,558.5 Q300,573.5 600,558.5 Q900,573.5 1200,558.5 L1200,620 Q900,635 600,620 Q300,635 0,620 Z;
+                        M0,553.5 Q300,568.5 600,553.5 Q900,568.5 1200,553.5 L1200,615 Q900,630 600,615 Q300,630 0,615 Z"
+                dur="4s" begin="1.35s" repeatCount="indefinite"/>
+            </path>
+            <path class="stripe stripe-white" fill="url(#whiteGradient)">
+              <animate attributeName="d" 
+                values="M0,676.5 Q300,691.5 600,676.5 Q900,691.5 1200,676.5 L1200,738 Q900,753 600,738 Q300,753 0,738 Z;
+                        M0,681.5 Q300,696.5 600,681.5 Q900,696.5 1200,681.5 L1200,743 Q900,758 600,743 Q300,758 0,743 Z;
+                        M0,686.5 Q300,701.5 600,686.5 Q900,701.5 1200,686.5 L1200,748 Q900,763 600,748 Q300,763 0,748 Z;
+                        M0,681.5 Q300,696.5 600,681.5 Q900,696.5 1200,681.5 L1200,743 Q900,758 600,743 Q300,758 0,743 Z;
+                        M0,676.5 Q300,691.5 600,676.5 Q900,691.5 1200,676.5 L1200,738 Q900,753 600,738 Q300,753 0,738 Z"
+                dur="4s" begin="1.65s" repeatCount="indefinite"/>
+            </path>
+            
+            <!-- Blue canton with flowing curves -->
+            <path class="canton" fill="url(#blueGradient)">
+              <animate attributeName="d" 
+                values="M0,0 Q150,20 300,0 Q450,20 462,0 L462,430 Q450,450 300,430 Q150,450 0,430 Z;
+                        M0,0 Q150,25 300,5 Q450,25 462,5 L462,435 Q450,455 300,435 Q150,455 0,435 Z;
+                        M0,0 Q150,30 300,10 Q450,30 462,10 L462,440 Q450,460 300,440 Q150,460 0,440 Z;
+                        M0,0 Q150,25 300,5 Q450,25 462,5 L462,435 Q450,455 300,435 Q150,455 0,435 Z;
+                        M0,0 Q150,20 300,0 Q450,20 462,0 L462,430 Q450,450 300,430 Q150,450 0,430 Z"
+                dur="4s" repeatCount="indefinite"/>
+            </path>
+          </g>
+        </svg>
+      </div>
+      <div class="modal-header">
+        <h2>About Citizenship Daily</h2>
+        <button class="close-button" (click)="closeModal()">
+          <app-icon name="x" [size]="24"></app-icon>
+        </button>
+      </div>
+      
+      <div class="info-content">
+        <p class="info-description">
+          Test your knowledge of US citizenship with 5 daily questions from the official USCIS civics test.
+        </p>
+        
+        <div class="info-section">
+          <h3>About the Questions</h3>
+          <p>
+            Our questions are based on the official USCIS 100 Civics Questions for the Naturalization Test. 
+            The official test includes both <strong>static questions</strong> (with fixed answers) and 
+            <strong>time-sensitive questions</strong> (with answers that change based on current officeholders).
+          </p>
+        </div>
+
+        <div class="info-section">
+          <h3>What We Include</h3>
+          <p>
+            This app uses only <strong>static questions with fixed answers</strong> that never change, such as:
+          </p>
+          <ul>
+            <li>Historical facts (e.g., "When was the Declaration of Independence adopted?")</li>
+            <li>Constitutional principles (e.g., "What is the supreme law of the land?")</li>
+            <li>Government structure (e.g., "How many U.S. Senators are there?")</li>
+            <li>Geography, symbols, and holidays</li>
+          </ul>
+          <p>
+            This ensures all users get the same quiz experience regardless of when they take it.
+          </p>
+        </div>
+
+        <div class="info-section">
+          <h3>What We Don't Include</h3>
+          <p>
+            We exclude <strong>time-sensitive questions</strong> that require current information about officeholders, such as:
+          </p>
+          <ul>
+            <li>"Who is the President of the United States now?"</li>
+            <li>"Who is the Vice President now?"</li>
+            <li>"Who is the Speaker of the House now?"</li>
+            <li>"Who is the Chief Justice of the United States now?"</li>
+          </ul>
+          <p>
+            These questions have answers that change with elections and appointments, which would create inconsistent quiz experiences.
+          </p>
+        </div>
+        
+        <div class="info-features">
+          <div class="feature-item">
+            <span class="feature-icon">📚</span>
+            <span class="feature-text">90+ official USCIS civics questions</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">📊</span>
+            <span class="feature-text">Track your progress and streaks</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🗽</span>
+            <span class="feature-text">New questions daily at midnight EST</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
