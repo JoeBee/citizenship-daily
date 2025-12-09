@@ -15,7 +15,7 @@ firebase deploy --only functions
 ```
 
 This will deploy:
-- `generateDailyQuiz` - Scheduled function that runs daily at midnight UTC
+- `generateDailyQuiz` - Scheduled function that runs daily at midnight NYC time (America/New_York)
 - `generateQuizManually` - HTTP function for manual quiz generation
 
 ### 2. Test Manual Generation
@@ -42,14 +42,14 @@ curl "https://us-central1-citizenship-daily-ef3e3.cloudfunctions.net/generateQui
 ## Scheduled Function
 
 The `generateDailyQuiz` function is automatically scheduled to run:
-- **Time**: Every day at 00:00 UTC (midnight)
+- **Time**: Every day at 00:00 NYC time (America/New_York timezone)
 - **Location**: Cloud Scheduler (visible in Firebase Console > Functions > Schedules)
 
 ### First Run
 
 The scheduled function will start running automatically after deployment. However, you may want to:
 1. Manually trigger it for today using `generateQuizManually`
-2. Or wait until midnight UTC for it to run automatically
+2. Or wait until midnight NYC time for it to run automatically
 
 ## Manual Generation
 
@@ -87,7 +87,7 @@ Or in Firebase Console:
 
 1. Go to Firebase Console > Functions
 2. Click on "Schedules" tab
-3. You should see `generateDailyQuiz` scheduled for "every day 00:00 UTC"
+3. You should see `generateDailyQuiz` scheduled for "every day 00:00" in America/New_York timezone
 
 ## Troubleshooting
 

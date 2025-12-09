@@ -64,25 +64,33 @@
   </div>
   } @else {
   <div class="error">
+    @if (error()) {
+    <div class="error-content">
+      <div class="error-icon">⚠️</div>
+      <h2>Unable to Load Quiz</h2>
+      <p class="error-message">{{ error()!.message }}</p>
+      <div class="error-details">
+        @if (error()!.type === 'network_error' || error()!.type === 'timeout') {
+        <p>Please check your internet connection and try again.</p>
+        } @else if (error()!.type === 'generation_failed') {
+        <p>The quiz could not be generated. This may be a temporary issue. Please try refreshing the page.</p>
+        } @else {
+        <p>The quiz is not available. Please try again later or contact support if the issue persists.</p>
+        }
+        <button class="retry-button" (click)="loadQuiz()" style="margin-top: 16px;">
+          Retry
+        </button>
+      </div>
+    </div>
+    } @else {
     <p>No quiz available for today.</p>
     <p style="font-size: 14px; margin-top: 12px; color: #6b7280;">
-      The quiz could not be generated automatically. To set up the quiz, please:
+      The quiz could not be loaded. Please try refreshing the page.
     </p>
-    <ul
-      style="font-size: 14px; margin-top: 8px; color: #6b7280; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto;">
-      <li><strong>Option 1:</strong> Deploy Cloud Functions (requires Blaze plan):
-        <code
-          style="display: block; margin-top: 4px; padding: 8px; background: #f3f4f6; border-radius: 4px;">firebase deploy --only functions</code>
-      </li>
-      <li style="margin-top: 12px;"><strong>Option 2:</strong> Manually add questions via Firebase Console:
-        <ul style="margin-top: 4px; margin-left: 20px;">
-          <li>Go to Firestore Database</li>
-          <li>Create collection: <code>citizenshipDaily</code></li>
-          <li>Add document with ID: today's date (YYYY-MM-DD format)</li>
-          <li>See Firebase documentation for details</li>
-        </ul>
-      </li>
-    </ul>
+    <button class="retry-button" (click)="loadQuiz()" style="margin-top: 16px;">
+      Retry
+    </button>
+    }
   </div>
   }
 </div>

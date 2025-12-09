@@ -488,8 +488,8 @@ export const questionBank: Question[] = [
   },
   {
     questionText: "Name one American Indian tribe in the United States.",
-    options: ["Cherokee", "Apache", "Navajo", "All of the above"],
-    correctAnswerIndex: 3,
+    options: ["Cherokee", "Apache", "Navajo", "Sioux"],
+    correctAnswerIndex: 0,
     category: "Recent American History"
   },
 
@@ -526,8 +526,8 @@ export const questionBank: Question[] = [
   },
   {
     questionText: "Name one state that borders Mexico.",
-    options: ["California", "Nevada", "Arizona", "Both California and Arizona"],
-    correctAnswerIndex: 3,
+    options: ["California", "Nevada", "Arizona", "Texas"],
+    correctAnswerIndex: 0,
     category: "Geography"
   },
   {
@@ -547,7 +547,7 @@ export const questionBank: Question[] = [
   {
     questionText: "Why does the flag have 13 stripes?",
     options: ["Because there were 13 original colonies", "Because there were 13 original states", "Because it looks good", "Because 13 is lucky"],
-    correctAnswerIndex: 1,
+    correctAnswerIndex: 0,
     category: "Symbols"
   },
   {

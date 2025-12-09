@@ -212,6 +212,76 @@
   color: #ef4444;
 }
 
+.error-content {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.error-icon {
+  font-size: 64px;
+  margin-bottom: 24px;
+}
+
+.error-content h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 16px;
+}
+
+.error-message {
+  font-size: 18px;
+  color: #6b7280;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.error-details {
+  font-size: 16px;
+  color: #374151;
+  line-height: 1.6;
+}
+
+.retry-button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.retry-button:hover {
+  background: #2563eb;
+}
+
+.retry-button:active {
+  background: #1d4ed8;
+}
+
+.dark .error-content h2 {
+  color: white;
+}
+
+.dark .error-message {
+  color: #9ca3af;
+}
+
+.dark .error-details {
+  color: #d1d5db;
+}
+
+.dark .retry-button {
+  background: #3b82f6;
+}
+
+.dark .retry-button:hover {
+  background: #2563eb;
+}
+
 .completed-message {
   text-align: center;
   padding: 40px 20px;

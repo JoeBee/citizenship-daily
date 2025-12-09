@@ -5,7 +5,7 @@ This directory contains Firebase Cloud Functions that automatically generate dai
 ## Functions
 
 ### 1. `generateDailyQuiz` (Scheduled)
-- **Schedule**: Runs daily at midnight UTC (00:00)
+- **Schedule**: Runs daily at midnight NYC time (America/New_York timezone)
 - **Purpose**: Automatically generates 5 questions for the current day
 - **Document Format**: Creates documents in the `citizenshipDaily` collection with IDs in `YYYY-MM-DD` format (e.g., `2025-11-17`)
 - **Behavior**: 

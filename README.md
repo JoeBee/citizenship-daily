@@ -80,7 +80,6 @@ firebase deploy
 - `src/app/components/` - Angular components (quiz, results, stats, settings)
 - `src/app/services/` - Services for quiz data and local storage
 - `functions/` - Firebase Cloud Functions for automatic question generation
-- `scripts/` - Scripts for manually populating Firestore
 - `firebase.json` - Firebase hosting and functions configuration
 
 ## Firestore Structure

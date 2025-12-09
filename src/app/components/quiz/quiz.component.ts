@@ -1,6 +1,6 @@
 import { Component, OnInit, signal, computed, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { QuizService, Question } from '../../services/quiz.service';
+import { QuizService, Question, QuizError, DailyQuiz } from '../../services/quiz.service';
 import { StorageService, QuizState } from '../../services/storage.service';
 import { Router } from '@angular/router';
 import { IconComponent } from '../../shared/icon.component';
@@ -23,6 +23,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   quizDate = signal('');
   quizCategory = signal<string>('');
   isCompleted = signal(false);
+  error = signal<QuizError | null>(null);
   private loadingTimeout: any = null;
 
   currentQuestion = computed(() => {
@@ -96,20 +97,35 @@ export class QuizComponent implements OnInit, OnDestroy {
     // Check local storage for saved state
     const savedState = this.storageService.getQuizState();
     
-    const handleQuizResponse = (quiz: any) => {
+    const handleQuizResponse = (quiz: DailyQuiz | QuizError) => {
       this.isLoading.set(false);
       this.isGenerating.set(false);
-      if (quiz && quiz.questions && quiz.questions.length > 0) {
-        this.questions.set(quiz.questions);
-        this.quizCategory.set(quiz.category || '');
+      
+      // Check if result is an error
+      if ('type' in quiz && 'message' in quiz) {
+        // This is a QuizError
+        this.error.set(quiz);
+        this.questions.set([]);
+        return;
+      }
+      
+      // This is a DailyQuiz
+      const dailyQuiz = quiz as DailyQuiz;
+      if (dailyQuiz && dailyQuiz.questions && dailyQuiz.questions.length > 0) {
+        this.error.set(null);
+        this.questions.set(dailyQuiz.questions);
+        this.quizCategory.set(dailyQuiz.category || '');
         if (savedState && savedState.quizDate === currentDate) {
           this.currentQuestionIndex.set(savedState.currentQuestionIndex);
           this.answers.set(savedState.answers);
         }
       } else {
-        // No quiz available - this will show the error message
-        this.isLoading.set(false);
-        this.isGenerating.set(false);
+        // No quiz available
+        this.error.set({
+          message: 'No quiz available for today. Please try again later.',
+          type: 'not_found'
+        });
+        this.questions.set([]);
       }
     };
 
@@ -117,10 +133,11 @@ export class QuizComponent implements OnInit, OnDestroy {
       console.error('Error loading quiz:', error);
       this.isLoading.set(false);
       this.isGenerating.set(false);
-      // Ensure we have an empty questions array to trigger the error UI
-      if (this.questions().length === 0) {
-        // This will show the error state in the template
-      }
+      this.error.set({
+        message: 'Failed to load quiz. Please check your internet connection and try again.',
+        type: 'network_error'
+      });
+      this.questions.set([]);
     };
 
     if (savedState && savedState.quizDate === currentDate) {

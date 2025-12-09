@@ -2,12 +2,10 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     // Allow public read access to citizenshipDaily collection
-    // Allow write only if document doesn't exist (to prevent overwriting)
+    // Writes are only allowed via Cloud Functions (Admin SDK bypasses rules)
     match /citizenshipDaily/{document} {
       allow read: if true;
-      // Allow write if document doesn't exist (for client-side generation fallback)
-      allow create: if true;
-      allow update, delete: if false;
+      allow write: if false; // Only Cloud Functions can write
     }
   }
 }

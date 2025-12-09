@@ -18,28 +18,23 @@ npm install
    - `apiKey`
    - `appId`
 
-### 3. Set Up Firestore
+### 3. Deploy Cloud Functions
 
-1. In Firebase Console, go to Firestore Database
-2. Click "Start collection" (if you haven't created it yet)
-3. Collection ID: `citizenshipDaily`
-4. Add documents following the format in `scripts/populate-firestore-simple.md`
+The app uses Firebase Cloud Functions to automatically generate daily quiz questions. Deploy the functions:
 
-**Important**: Document IDs must be in `YYYY-MM-DD` format (e.g., `2025-01-15`)
-
-Each document should have this structure:
-```json
-{
-  "questions": [
-    {
-      "questionText": "Your question here?",
-      "options": ["Option 1", "Option 2", "Option 3", "Option 4"],
-      "correctAnswerIndex": 0
-    },
-    // ... 4 more questions
-  ]
-}
+```bash
+cd functions
+npm install
+npm run build
+cd ..
+firebase deploy --only functions
 ```
+
+This will deploy:
+- `generateDailyQuiz` - Scheduled function that runs daily at midnight NYC time
+- `generateQuizManually` - HTTP function for manual quiz generation (useful for testing)
+
+After deployment, questions will be automatically generated daily. You can also manually trigger generation using the HTTP function (see `functions/README.md` for details).
 
 ### 4. Set Firestore Rules
 
@@ -60,9 +55,16 @@ Navigate to `http://localhost:4200/`
 ## Testing
 
 To test the app with today's quiz:
-1. Create a Firestore document with today's date as the ID (e.g., `2025-01-20`)
-2. Add 5 questions following the structure above
-3. The app will automatically load questions for the current UTC date
+1. Deploy the Cloud Functions (see step 3 above)
+2. Manually trigger quiz generation using the HTTP function:
+   ```bash
+   curl https://us-central1-citizenship-daily-ef3e3.cloudfunctions.net/generateQuizManually
+   ```
+   Or generate for a specific date:
+   ```bash
+   curl "https://us-central1-citizenship-daily-ef3e3.cloudfunctions.net/generateQuizManually?date=2025-01-20"
+   ```
+3. The app will automatically load questions for the current date
 
 ## Deployment
 
@@ -98,8 +100,7 @@ citizenship-daily/
 │   │   └── app.ts             # Main app component
 │   └── environments/
 │       └── environment.ts     # Firebase config
-├── scripts/
-│   └── populate-firestore-simple.md # Manual setup guide
+├── functions/                 # Firebase Cloud Functions for automatic question generation
 ├── firebase.json              # Firebase hosting config
 ├── firestore.rules            # Firestore security rules
 └── .firebaserc                # Firebase project config
@@ -118,9 +119,11 @@ citizenship-daily/
 ## Troubleshooting
 
 ### App shows "No quiz available for today"
-- Make sure you've created a Firestore document with today's date (YYYY-MM-DD format)
-- Check that the document has a `questions` array with 5 questions
+- Make sure Cloud Functions are deployed: `firebase deploy --only functions`
+- Check that the scheduled function has run (it runs daily at midnight NYC time)
+- Manually trigger quiz generation using `generateQuizManually` HTTP function
 - Verify Firestore rules allow read access
+- Check Firestore for documents with date format `YYYY-MM-DD` in the `citizenshipDaily` collection
 
 ### Firebase connection errors
 - Verify your Firebase config in `environment.ts`
