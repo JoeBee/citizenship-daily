@@ -55,6 +55,28 @@
             </span>
           </div>
         </div>
+        
+        @if (question.explanation) {
+        <div class="explanation-section">
+          <button 
+            class="explanation-toggle" 
+            (click)="toggleExplanation($index)"
+            [attr.aria-expanded]="isExplanationExpanded($index)"
+            type="button">
+            <span class="explanation-toggle-text">Learn more about this answer</span>
+            <app-icon 
+              [name]="isExplanationExpanded($index) ? 'chevron-up' : 'chevron-down'" 
+              [size]="20" 
+              class="explanation-icon">
+            </app-icon>
+          </button>
+          <div 
+            class="explanation-content" 
+            [class.expanded]="isExplanationExpanded($index)">
+            <div class="explanation-text">{{ question.explanation }}</div>
+          </div>
+        </div>
+        }
       </div>
       }
     </div>

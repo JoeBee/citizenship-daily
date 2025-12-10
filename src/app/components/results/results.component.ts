@@ -20,6 +20,7 @@ export class ResultsComponent implements OnInit, AfterViewInit {
   questions: Question[] = [];
   quizDate = '';
   showCopyNotification = false;
+  expandedExplanations = new Set<number>();
   private shouldRedirect = false;
 
   constructor(
@@ -82,6 +83,13 @@ export class ResultsComponent implements OnInit, AfterViewInit {
       if (!this.questions || this.questions.length === 0) {
         console.error('Results component initialized without questions, will redirect');
         this.shouldRedirect = true;
+      } else {
+        // Debug: Check if explanations are present
+        const questionsWithExplanations = this.questions.filter(q => q.explanation).length;
+        console.log(`Loaded ${this.questions.length} questions, ${questionsWithExplanations} have explanations`);
+        if (questionsWithExplanations === 0) {
+          console.warn('No explanations found in questions. Questions may need to be regenerated with the updated Cloud Function.');
+        }
       }
     } catch (error) {
       console.error('Error initializing results component:', error);
@@ -176,6 +184,18 @@ export class ResultsComponent implements OnInit, AfterViewInit {
       default:
         return '';
     }
+  }
+
+  toggleExplanation(index: number): void {
+    if (this.expandedExplanations.has(index)) {
+      this.expandedExplanations.delete(index);
+    } else {
+      this.expandedExplanations.add(index);
+    }
+  }
+
+  isExplanationExpanded(index: number): boolean {
+    return this.expandedExplanations.has(index);
   }
 }
 

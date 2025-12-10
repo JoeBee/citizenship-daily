@@ -10,6 +10,7 @@ export interface Question {
   options: string[];
   correctAnswerIndex: number;
   category?: string;
+  explanation?: string;
 }
 
 export interface DailyQuiz {

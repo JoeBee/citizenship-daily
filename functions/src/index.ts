@@ -67,7 +67,8 @@ export const generateDailyQuiz = onSchedule(
           questionText: q.questionText,
           options: q.options,
           correctAnswerIndex: q.correctAnswerIndex,
-          category: q.category
+          category: q.category,
+          explanation: q.explanation
         })),
         generatedAt: FieldValue.serverTimestamp(),
         date: dateString,
@@ -134,16 +135,21 @@ export const generateQuizManually = onRequest(
       
       // Check if quiz already exists
       const docSnapshot = await docRef.get();
-      if (docSnapshot.exists) {
+      const overwrite = req.query.overwrite === 'true';
+      if (docSnapshot.exists && !overwrite) {
         logger.info(`Quiz for ${dateString} already exists`);
         res.json({
           success: true,
           date: dateString,
           questionCount: docSnapshot.data()?.questions?.length || 0,
-          message: `Quiz already exists for ${dateString}`,
+          message: `Quiz already exists for ${dateString}. Add ?overwrite=true to regenerate.`,
           alreadyExists: true
         });
         return;
+      }
+      
+      if (docSnapshot.exists && overwrite) {
+        logger.info(`Overwriting existing quiz for ${dateString}`);
       }
       
       // Generate questions
@@ -169,7 +175,8 @@ export const generateQuizManually = onRequest(
           questionText: q.questionText,
           options: q.options,
           correctAnswerIndex: q.correctAnswerIndex,
-          category: q.category
+          category: q.category,
+          explanation: q.explanation
         })),
         generatedAt: FieldValue.serverTimestamp(),
         date: dateString,
