@@ -677,7 +677,8 @@ export const questionBank: Question[] = [
  */
 export function generateDailyQuestions(dateString: string): Question[] {
   // Use date string as seed for consistent selection
-  const seed = dateString.split('-').map(Number).reduce((a, b) => a + b, 0);
+  // Convert YYYY-MM-DD to a unique number (e.g., 20251220) to avoid seed collisions
+  const seed = parseInt(dateString.replace(/-/g, ''), 10);
 
   // Simple seeded random number generator
   let seedValue = seed;
