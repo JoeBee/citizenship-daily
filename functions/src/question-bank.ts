@@ -236,7 +236,7 @@ export const questionBank: Question[] = [
   },
   {
     questionText: "What are two Cabinet-level positions?",
-    options: ["Secretary of State and Secretary of Labor", "Secretary of Health and Secretary of Education", "Secretary of Defense and Secretary of Agriculture", "Secretary of Commerce and Secretary of Transportation"],
+    options: ["Secretary of State and Secretary of Labor", "Secretary of Health and Speaker of the House", "Secretary of Defense and Chief Justice", "Secretary of Education and Governor"],
     correctAnswerIndex: 0,
     category: "System of Government",
     explanation: "The Cabinet includes positions like Secretary of State (foreign affairs), Secretary of Labor (workplace issues), Secretary of Defense (military), and others. Each oversees a major executive department."
@@ -566,10 +566,10 @@ export const questionBank: Question[] = [
   },
   {
     questionText: "Name one American Indian tribe in the United States.",
-    options: ["Cherokee", "Apache", "Navajo", "Sioux"],
+    options: ["Cherokee", "Maya", "Inca", "Aztec"],
     correctAnswerIndex: 0,
     category: "Recent American History",
-    explanation: "There are hundreds of federally recognized American Indian tribes in the United States, including the Cherokee, Apache, Navajo, Sioux, and many others. Each tribe has its own distinct culture, language, and history."
+    explanation: "There are hundreds of federally recognized American Indian tribes in the United States, including the Cherokee, Navajo, Sioux, and many others. Each tribe has its own distinct culture, language, and history."
   },
 
   // INTEGRATED CIVICS - A: Geography (88-95)
@@ -610,7 +610,7 @@ export const questionBank: Question[] = [
   },
   {
     questionText: "Name one state that borders Mexico.",
-    options: ["California", "Nevada", "Arizona", "Texas"],
+    options: ["California", "Nevada", "Florida", "Oregon"],
     correctAnswerIndex: 0,
     category: "Geography",
     explanation: "Four U.S. states border Mexico: California, Arizona, New Mexico, and Texas. This border stretches approximately 1,954 miles from the Pacific Ocean to the Gulf of Mexico."
@@ -676,15 +676,28 @@ export const questionBank: Question[] = [
  * All questions have equal probability of being selected
  */
 export function generateDailyQuestions(dateString: string): Question[] {
-  // Use date string as seed for consistent selection
-  // Convert YYYY-MM-DD to a unique number (e.g., 20251220) to avoid seed collisions
-  const seed = parseInt(dateString.replace(/-/g, ''), 10);
+  // Use a simple hash of the date string as the seed
+  // This ensures that consecutive dates (which have very similar strings)
+  // produce very different seeds and therefore different shuffles
+  let seed = 0;
+  for (let i = 0; i < dateString.length; i++) {
+    seed = ((seed << 5) - seed) + dateString.charCodeAt(i);
+    seed |= 0; // Convert to 32bit integer
+  }
+  seed = Math.abs(seed);
 
-  // Simple seeded random number generator
+  // Simple seeded random number generator (Linear Congruential Generator)
   let seedValue = seed;
   function seededRandom() {
-    seedValue = (seedValue * 9301 + 49297) % 233280;
-    return seedValue / 233280;
+    // These constants provide a better distribution than the previous ones
+    // and help ensure "truly random" selection from the available questions
+    seedValue = (seedValue * 1664525 + 1013904223) % 4294967296;
+    return seedValue / 4294967296;
+  }
+
+  // Warm up the PRNG to further ensure randomness
+  for (let i = 0; i < 10; i++) {
+    seededRandom();
   }
 
   // Fisher-Yates shuffle algorithm for uniform distribution
